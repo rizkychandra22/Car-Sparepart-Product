@@ -21,32 +21,34 @@ Checklist pengembangan frontend React + Vite dari aplikasi PHP Native. Perubahan
 - [x] Sesuaikan skala landing sedikit lebih kecil tanpa mengubah layout dan palet utama.
 - [x] Impor 5.239 record sumber ke `src/data/parts.ts` sebagai mock frontend bertipe.
 - [x] Tambahkan satu user demo di `src/data/user.ts` dan validasi lokal pada form login.
-- [ ] Implementasikan halaman katalog dan sambungkan route katalog.
-- [ ] Implementasikan pencarian/filter katalog di browser.
+- [x] Implementasikan halaman `/parts` dan sambungkan route katalog.
+- [x] Tampilkan tabel katalog dengan sorting header dan pagination yang dapat diatur.
+- [x] Implementasikan pencarian/filter katalog di browser.
 
 ## Fase 0 — Referensi Visual
 
 - [x] Tetapkan aplikasi PHP (`app/Views` dan `public/assets`) sebagai sumber utama landing dan login.
 - [ ] Catat screenshot dan viewport landing, login, dan katalog pada desktop serta mobile.
-- [ ] Tetapkan path route katalog final.
+- [x] Tetapkan path route katalog `/parts`.
 
 ## Fase 1 — Data Master
 
 - [x] Siapkan 5.239 baris dataset terverifikasi di `src/data/parts.ts` dari SQL seed sumber.
 - [x] Buat tipe `SparePart` dan pemetaan semua kolom sumber.
 - [x] Pertahankan nilai kosong; jangan menambahkan stok, rating, harga pasar, atau kompatibilitas.
-- [ ] Bentuk opsi filter dari nilai dataset.
+- [x] Bentuk opsi filter dari nilai dataset.
 
 Kolom sumber: `source_excel_row`, `hyundai_type`, `brand`, `vehicle_type`, `part_name_original`, `part_description_competitor`, `part_group`, `category`, `estimated_moving`, `part_number`, `price`, `price_source_text`, dan `part_number_status`. Brand adalah kendaraan pembanding; harga tidak mencantumkan mata uang/tanggal.
 
 ## Fase 2 — Katalog dan Interaksi
 
-- [ ] Bangun katalog di `src/pages/index-parts.tsx` dengan komponen kecil di feature katalog.
-- [ ] Implementasikan keyword search nama, deskripsi, dan nomor part.
-- [ ] Implementasikan filter Hyundai Type, Brand, Vehicle Type, Part Group, kategori, estimated moving, status, nomor part, rentang harga, memiliki harga, dan memiliki nomor part.
-- [ ] Implementasikan sorting urutan sumber, nama A–Z, brand A–Z, harga rendah/tinggi.
-- [ ] Implementasikan pagination 25 baris, jumlah hasil, reset filter, dan empty state.
-- [ ] Implementasikan filter drawer mobile dan tabel/layout responsif.
+- [x] Bangun halaman katalog di `src/pages/parts.tsx`, tabel reusable di `src/components/common/data-table.tsx`, serta konfigurasi kolom di `src/features/app/parts-table.tsx`.
+- [x] Implementasikan keyword search nama, deskripsi, dan nomor part.
+- [x] Implementasikan filter Hyundai Type, Brand, Vehicle Type, Part Group, kategori, estimated moving, status, nomor part, rentang harga, memiliki harga, dan memiliki nomor part.
+- [x] Implementasikan sorting dengan header tabel.
+- [x] Implementasikan pagination 10/25/50/100 baris, total data, dan kontrol halaman pertama sampai terakhir.
+- [x] Implementasikan reset filter dan empty state.
+- [x] Implementasikan filter drawer mobile dan tabel/layout responsif.
 - [ ] Pertimbangkan query string untuk state pencarian, filter, sorting, dan halaman.
 
 ## Fase 3 — Pemeriksaan
@@ -55,4 +57,4 @@ Kolom sumber: `source_excel_row`, `hyundai_type`, `brand`, `vehicle_type`, `part
 - [ ] Periksa fokus keyboard, label form, status pesan, dan menu mobile.
 - [ ] Pastikan login jelas ditandai sebagai demo tanpa autentikasi backend.
 - [ ] Jalankan build, lint, dan typecheck setelah implementasi katalog.
-- [ ] Perbarui README dan arsitektur saat fitur katalog selesai.
+- [x] Perbarui README dan arsitektur untuk mencatat tabel katalog yang sudah tersedia.

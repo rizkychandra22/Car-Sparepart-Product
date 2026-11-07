@@ -5,6 +5,7 @@ import { Guest } from "@/layouts/guest"
 
 const LandingHome = lazy(() => import("@/pages/landing-home"))
 const LoginPage = lazy(() => import("@/pages/auth/login"))
+const PartsPage = lazy(() => import("@/pages/parts"))
 
 function PageFallback() {
   return (
@@ -23,6 +24,7 @@ export default function App() {
             <Route element={<Guest />}>
               <Route path="/" element={<LandingHome />} />
             </Route>
+            <Route path="/parts" element={<PartsPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>

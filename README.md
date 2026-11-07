@@ -2,7 +2,7 @@
 
 Proyek ini adalah frontend React + Vite yang sedang disiapkan untuk migrasi tampilan aplikasi **PARTSCOPE** dari PHP Native. Target migrasi adalah mempertahankan tampilan dan alur halaman sumber, sambil mengganti implementasi frontend ke React. Migrasi ini tidak mencakup backend.
 
-> **Status saat ini:** landing, login, dan dataset statis 5.239 baris sudah tersedia. Halaman serta interaksi katalog masih belum diimplementasikan. Lihat [roadmap migrasi](docs/tasks/roadmap.md).
+> **Status saat ini:** landing, login, dan halaman `/parts` dengan pencarian, filter lokal, sorting header, dan pagination sudah tersedia. Lihat [roadmap migrasi](docs/tasks/roadmap.md).
 
 ## Batas Cakupan
 
@@ -20,7 +20,7 @@ Proyek ini adalah frontend React + Vite yang sedang disiapkan untuk migrasi tamp
 - Kredensial demo: `test@example.com` / `admin123`.
 - CSS dasar PARTSCOPE berada di `src/App.css`; theme landing, tuning, dan aset hexagon berada di `src/assets/`.
 - `src/data/parts.ts` memuat 5.239 record statis, bertipe `SparePart`, bersumber dari SQL seed proyek PHP.
-- Halaman `src/pages/index-parts.tsx` masih kosong; pencarian, filter, sorting, dan pagination katalog belum diimplementasikan.
+- Halaman `/parts` mengikuti kerangka PHP PARTSCOPE dengan pencarian, filter lokal, tabel delapan kolom, sorting header, dan pagination yang dapat diatur (10 baris per halaman secara default).
 
 Detail arsitektur dan perbedaan model data tercatat di [frontend-system.md](docs/architecture/frontend-system.md).
 
@@ -46,12 +46,13 @@ src/
 ├── main.tsx                # Entry point React
 ├── pages/
 │   ├── landing-home.tsx    # Komposisi landing
-│   ├── index-parts.tsx     # Placeholder halaman katalog
+│   ├── parts.tsx           # Halaman katalog master data
 │   └── auth/login.tsx      # Login demo tanpa backend
 ├── features/landing/       # Section landing dalam file terpisah
+├── features/app/           # Fitur halaman katalog aplikasi
 ├── layouts/guest.tsx       # Layout landing, navigasi, dan footer
 ├── components/
-│   ├── common/             # Saat ini hanya ErrorBoundary
+│   ├── common/             # Brand, ErrorBoundary, dan tabel data reusable
 │   └── ui/                 # Primitif UI
 ├── data/parts.ts           # Dataset statis 5.239 part dan tipe SparePart
 ├── assets/

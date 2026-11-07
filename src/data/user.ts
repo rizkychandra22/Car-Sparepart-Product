@@ -7,7 +7,7 @@ export interface DemoUser {
 export const USERS: readonly DemoUser[] = [
   {
     email: "test@example.com",
-    password: "admin123",
+    password: "password",
   },
 ]
 

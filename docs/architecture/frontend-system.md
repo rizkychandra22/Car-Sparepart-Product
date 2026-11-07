@@ -1,6 +1,6 @@
 # Arsitektur Frontend PARTSCOPE
 
-Dokumen ini membedakan bagian yang sudah diimplementasikan dari target migrasi katalog. Landing page, login demo, dan dataset statis sudah tersedia; halaman serta interaksi katalog masih menjadi pekerjaan berikutnya.
+Dokumen ini membedakan bagian yang sudah diimplementasikan dari target migrasi katalog. Landing page, login demo, dataset statis, serta halaman katalog dengan pencarian, filter, sorting, dan pagination lokal sudah tersedia.
 
 ## 1. Cakupan
 
@@ -18,10 +18,11 @@ Route aktif di `src/App.tsx`:
 | Route | Implementasi |
 | --- | --- |
 | `/` | `Guest` layout + `src/pages/landing-home.tsx` |
+| `/parts` | `src/pages/parts.tsx` dengan tabel dan pagination |
 | `/login` | `src/pages/auth/login.tsx`, di luar `Guest` |
 | lainnya | Redirect ke `/` |
 
-Katalog belum tersambung ke route.
+Route katalog menggunakan dataset lokal dan tidak memerlukan backend.
 
 ## 3. Struktur Frontend
 
@@ -32,7 +33,7 @@ src/
 ├── main.tsx
 ├── pages/
 │   ├── landing-home.tsx       # Merangkai section landing
-│   ├── index-parts.tsx        # Placeholder katalog, masih kosong
+│   ├── parts.tsx              # Halaman katalog
 │   └── auth/login.tsx         # Form login demo
 ├── features/landing/
 │   ├── hero-section.tsx
@@ -40,10 +41,12 @@ src/
 │   ├── features-section.tsx
 │   ├── workflow-section.tsx
 │   └── closing-cta.tsx
+├── features/app/              # Fitur halaman aplikasi, termasuk katalog parts
 ├── layouts/guest.tsx          # Header, navigasi, Outlet, footer landing
 ├── components/
 │   ├── common/brand.tsx
 │   ├── common/error-boundary.tsx
+│   ├── common/data-table.tsx  # Tabel reusable, sorting, dan pagination
 │   └── ui/                    # Primitif UI yang tersedia
 ├── data/parts.ts              # SparePart type + 5,239 static records
 ├── data/user.ts               # Satu akun demo lokal untuk form login
@@ -63,7 +66,7 @@ Sumber acuan berisi 5.239 baris dengan kolom `source_excel_row`, `hyundai_type`,
 
 `src/data/parts.ts` memuat tipe domain `SparePart` dan seluruh 5.239 record dalam tuple data lokal yang dipetakan ke object `PARTS` saat modul dimuat. Data berasal dari SQL seed proyek PHP, mencakup nomor baris Excel 2–5240. Nilai kosong dipertahankan sebagai `null`; `price` berbentuk string agar presisi desimal tidak berubah. `brand` adalah merek kendaraan pembanding. Harga sumber tidak mencantumkan mata uang atau tanggal, dan sumber tidak membuktikan kompatibilitas.
 
-Perilaku katalog yang perlu dimigrasikan: pencarian nama/deskripsi/nomor part; filter Hyundai Type, Brand, Vehicle Type, Part Group, kategori, moving, status, rentang harga, serta keberadaan harga/nomor; sorting; pagination 25 baris; ringkasan hasil; empty state; reset; filter drawer mobile; dan layout responsif.
+Halaman `/parts` mengikuti kerangka header, heading katalog, panel filter, toolbar pencarian/sort, ringkasan hasil, dan footer dari halaman PHP. Data diambil dari `src/data/parts.ts` dan difilter di browser. Tabel delapan kolom memakai komponen Table UI, sorting header, serta pagination yang dapat diatur ke 10, 25, 50, atau 100 baris (10 sebagai default), dengan tombol halaman pertama/sebelumnya/berikutnya/terakhir. Filter mencakup keyword nama/deskripsi/nomor part, atribut kendaraan dan kategori, status, rentang harga, serta keberadaan harga/nomor part.
 
 ## 5. Konvensi
 

@@ -5,6 +5,7 @@ import './App.css'
 import './assets/styles/auth-tuning.css'
 import './assets/styles/home-tech.css'
 import './assets/styles/landing-tuning.css'
+import './assets/styles/parts.css'
 import App from './App.tsx'
 
 createRoot(document.getElementById('root')!).render(

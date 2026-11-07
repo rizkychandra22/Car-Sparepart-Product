@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { ArrowLeft, Eye, EyeOff, Lock, ShieldCheck } from "lucide-react"
 import { Brand } from "@/components/common/brand"
 import { Button } from "@/components/ui/button"
@@ -13,6 +13,7 @@ type LoginNotice = {
 }
 
 export default function LoginPage() {
+  const navigate = useNavigate()
   const [showPassword, setShowPassword] = useState(false)
   const [notice, setNotice] = useState<LoginNotice | null>(null)
 
@@ -24,9 +25,13 @@ export default function LoginPage() {
     const password = String(formData.get("password") ?? "")
     const matchedUser = authenticateDemoUser(email, password)
 
-    setNotice(matchedUser
-      ? { type: "success", message: `Login demo berhasil sebagai ${matchedUser.email}.` }
-      : { type: "error", message: "Email atau password tidak sesuai dengan akun demo." })
+    if (!matchedUser) {
+      setNotice({ type: "error", message: "Email atau password tidak sesuai dengan akun demo." })
+      return
+    }
+
+    setNotice(null)
+    navigate("/parts", { replace: true })
   }
 
   return (
