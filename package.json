@@ -6,10 +6,11 @@
   "packageManager": "npm@12.2.1",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
-    "build:turbo": "turbo run build",
-    "lint": "eslint .",
-    "lint:turbo": "turbo run lint",
+    "build": "turbo run build:task",
+    "build:task": "tsc -b && vite build",
+    "lint": "turbo run lint:task",
+    "lint:task": "eslint .",
+    "typecheck": "tsc -b",
     "preview": "vite preview"
   },
   "dependencies": {

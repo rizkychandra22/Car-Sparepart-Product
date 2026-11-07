@@ -1,75 +1,128 @@
-# React + TypeScript + Vite
+# AutoPart Central
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> **Portal Katalog Suku Cadang Mobil & Manajemen Inventaris Gudang**  
+> Aplikasi modern berbasis React 19, TypeScript, Tailwind CSS v4, dan Turborepo yang dirancang untuk performa tinggi, modularitas, dan pengalaman belanja suku cadang otomotif yang presisi.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🚀 Fitur Utama
 
-## React Compiler
+- **Katalog Suku Cadang Presisi**:
+  - Filter kategori suku cadang (Pengereman, Mesin, Kelistrikan, Suspensi, Transmisi, Filter & Oli).
+  - Filter merk otomotif (Brembo, Denso, Bosch, Gates, Kayaba, Aisin, Motul).
+  - Pencarian fleksibel berdasarkan nama komponen, nomor part resmi OEM, atau model mobil (Avanza, Innova, Pajero, dsb.).
+  - Sorting produk berdasarkan popularitas, rating, harga terendah, dan harga tertinggi.
+- **Kartu Produk Reusable (`ProductCard`)**:
+  - Informasi nomor part, rating, status best-seller, kecocokan mobil, harga diskon, dan stok fisik.
+  - Handler proteksi gambar rusak (*fallback error handling*).
+  - Dialog detail spesifikasi teknis lengkap dengan tabel kompatibilitas kendaraan.
+- **Keranjang Belanja Reaktif (`CartContext`)**:
+  - Sinkronisasi otomatis ke `localStorage` (data tidak hilang saat refresh).
+  - Slide-over drawer laci keranjang (`CartSheet`) dengan pengatur kuantitas.
+  - Perhitungan otomatis subtotal, PPN 11%, estimasi ongkos kirim gratis, dan grand total.
+  - Notifikasi toast Sonner dengan sistem anti-duplikasi.
+- **Checkout & Konfirmasi Pesanan (`CheckoutDialog`)**:
+  - Formulir data penerima pesanan dan tipe kendaraan.
+  - Pilihan metode pembayaran instan (QRIS, Transfer Bank, COD).
+  - Tanda terima ringkasan pesanan dengan nomor order unik.
+- **Navigasi Responsif & Mobile UX**:
+  - Mode mobile dilengkapi toggle menu floating drawer solid non-transparan dengan backdrop dim yang ramah sentuhan.
+  - Indikator menu aktif dengan efek ping dot modern.
+- **Panel Autentikasi & Manajemen Gudang**:
+  - Halaman login admin (`LoginPage`) dengan show/hide password dan pintasan akun demo.
+  - Dashboard stok & inventaris (`DashboardPage`) dengan ringkasan KPI (total SKU, total unit fisik, dan estimasi nilai aset).
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 🛠️ Tech Stack & Ekosistem
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+| Layer | Teknologi | Keterangan |
+| :--- | :--- | :--- |
+| **Framework** | [React 19](https://react.dev/) | Library UI terkini dengan fitur hooks & lazy routing |
+| **Language** | [TypeScript 5.8](https://www.typescriptlang.org/) | Pengetikan statis ketat tanpa `any` |
+| **Build Tool** | [Vite 8](https://vite.dev/) | Bundler modern dengan manual chunk splitting |
+| **Pipeline & Cache** | [Turborepo v2](https://turbo.build/repo) | Orkestrasi task kompilasi dan linting ter-cache |
+| **Styling** | [Tailwind CSS v4](https://tailwindcss.com/) | Engine utility-first CSS performa tinggi |
+| **Design System** | [shadcn/ui](https://ui.shadcn.com/) (Nova Preset) | Komponen UI atomik berbasis Radix UI |
+| **Typography** | [Geist Variable](https://vercel.com/font) | Tipografi bersih dan modern |
+| **Icons** | [Lucide React](https://lucide.dev/) | Library icon SVG tree-shakeable |
+| **Toaster** | [Sonner](https://sonner.emilkowal.ski/) | Sistem toast notification interaktif |
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 📁 Struktur Direktori
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```text
+Car-Sparepart-Product/
+├── docs/                   # Dokumentasi arsitektur dan perencanaan proyek
+│   ├── architecture/       # Ketentuan teknis, panduan kode, dan boundary rules
+│   │   ├── frontend-system.md
+│   │   └── README.md
+│   └── planning/           # Rencana pengembangan dan roadmap fitur
+│       └── roadmap.md
+├── public/                 # Aset statis publik
+├── src/
+│   ├── components/
+│   │   ├── ui/             # Primitif UI atomik shadcn / Radix UI
+│   │   └── common/         # Komponen presentasi bersama (ProductCard, CartSheet, CheckoutDialog, dsb.)
+│   ├── constans/           # Mock data katalog suku cadang dan kategori terpusat
+│   ├── context/            # React Context untuk state keranjang (cart-context)
+│   ├── layouts/            # Tata letak utama (guest.tsx dengan responsive navbar & drawer)
+│   ├── pages/              # Halaman rute (web.tsx, dashboard.tsx, auth/login.tsx)
+│   ├── types/              # Definisi kontrak tipe TypeScript murni
+│   ├── App.tsx             # Routing utama dengan React.lazy() & Suspense
+│   ├── index.css           # Konfigurasi Tailwind CSS v4 & custom utility
+│   └── main.tsx            # Entry point aplikasi
+├── package.json            # Dependensi dan script pipeline
+├── turbo.json              # Konfigurasi caching Turborepo
+└── vite.config.ts          # Konfigurasi Vite & chunking vendor
 ```
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## ⚙️ Panduan Menjalankan Proyek
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Prasyarat
+- Node.js versi 20.x atau yang lebih baru.
+- npm versi 10.x atau 12.x.
 
+### Instalasi Dependensi
+```bash
+npm install
 ```
+
+### Development Server
+Jalankan server pengembangan lokal:
+```bash
+npm run dev
+```
+Akses aplikasi melalui browser di `http://localhost:5173`.
+
+### Eksekusi Task Turborepo
+
+```bash
+# Menjalankan build produksi ter-cache oleh Turborepo
+npm run build
+
+# Menjalankan ESLint ter-cache oleh Turborepo
+npm run lint
+
+# Menjalankan pengecekan tipe data TypeScript murni
+npm run typecheck
+
+# Menjalankan preview server lokal dari folder dist/
+npm run preview
+```
+
+---
+
+## 📚 Dokumentasi Lanjutan
+
+Untuk membaca ketentuan teknis lebih mendalam dan arah pengembangan fitur:
+- 📖 **[Ketentuan Arsitektur & Sistem Frontend](docs/architecture/frontend-system.md)**
+- 🗺️ **[Roadmap & Rencana Pengembangan Fitur](docs/tasks/roadmap.md)**
+
+---
+
+## 📄 Lisensi
+Proyek ini dikembangkan sebagai purwarupa katalog suku cadang mobil dan portofolio profesional. Hak cipta dilindungi undang-undang.
