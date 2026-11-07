@@ -104,3 +104,4 @@ src/
    - Dialog modal, drawer sheet, dan list produk memanfaatkan utility `@utility no-scrollbar` di `src/index.css` agar tampilan rapi tanpa scrollbar bawaan browser yang kaku.
 5. **Handling Gambar Eksternal**:
    - Semua tag `<img>` produk wajib memiliki handler fallback `onError` untuk mencegah tampilan gambar rusak jika terjadi kendala pada CDN penyedia gambar.
+
