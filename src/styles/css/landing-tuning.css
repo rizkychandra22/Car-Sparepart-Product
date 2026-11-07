@@ -1,0 +1,184 @@
+/* Small size refinement for the React landing page while keeping the PHP layout. */
+.page-home .container {
+  width: min(calc(100% - 104px), 1280px);
+}
+
+.bt-hero {
+  min-height: 710px;
+}
+
+.bt-hero-content {
+  min-height: 684px;
+  padding-top: 132px;
+  padding-bottom: 94px;
+}
+
+.bt-kicker {
+  margin-bottom: 52px;
+}
+
+.bt-hero h1 {
+  font-size: clamp(46px, 5vw, 72px);
+}
+
+.bt-hero-intro {
+  font-size: 13px;
+  line-height: 1.95;
+}
+
+.bt-hero-smallprint {
+  margin-top: 55px;
+}
+
+.bt-hero-data {
+  min-height: 418px;
+}
+
+.bt-network-orbit {
+  width: 516px;
+  height: 516px;
+}
+
+.bt-orbit-core,
+.bt-orbit-core svg {
+  width: 182px;
+  height: 182px;
+}
+
+.bt-glass-panel {
+  width: min(100%, 455px);
+}
+
+.bt-data-floating {
+  padding: 15px 19px 17px;
+}
+
+.bt-data-floating strong {
+  font-size: 26px;
+}
+
+.bt-stat-inner {
+  min-height: 150px;
+}
+
+.bt-stat strong {
+  font-size: 35px;
+}
+
+.bt-features {
+  padding: 110px 0 118px;
+}
+
+.bt-section-heading {
+  gap: 72px;
+  margin-bottom: 44px;
+}
+
+.bt-section-heading h2 {
+  font-size: clamp(35px, 3.8vw, 54px);
+}
+
+.bt-feature-grid {
+  gap: 16px;
+}
+
+.bt-feature {
+  min-height: 292px;
+  padding: 26px 25px 23px;
+}
+
+.bt-feature-top svg {
+  width: 42px;
+  height: 42px;
+}
+
+.bt-feature h3 {
+  font-size: 21px;
+  margin-top: 22px;
+}
+
+.bt-workflow {
+  padding: 103px 0 108px;
+}
+
+.bt-workflow-title h2 {
+  font-size: clamp(37px, 4.5vw, 60px);
+}
+
+.bt-workflow-steps > div {
+  padding: 26px 28px;
+}
+
+.bt-footer-cta {
+  padding-top: 65px;
+}
+
+.bt-footer-cta h2 {
+  font-size: clamp(26px, 3.1vw, 42px);
+}
+
+@media (max-width: 1180px) {
+  .page-home .container {
+    width: min(calc(100% - 64px), 1280px);
+  }
+
+  .bt-hero h1 {
+    font-size: clamp(43px, 4.4vw, 64px);
+  }
+}
+
+@media (max-width: 900px) and (min-width: 701px) {
+  .bt-hero-content {
+    padding-top: 166px;
+    padding-bottom: 114px;
+  }
+
+  .bt-hero h1 {
+    font-size: clamp(48px, 6.7vw, 70px);
+  }
+
+  .bt-hero-data {
+    min-height: 414px;
+  }
+}
+
+@media (max-width: 700px) {
+  .page-home .container {
+    width: min(calc(100% - 38px), 1280px);
+  }
+
+  .bt-hero-content {
+    padding-top: 136px;
+    padding-bottom: 94px;
+  }
+
+  .bt-hero h1 {
+    font-size: clamp(36px, 8.4vw, 58px);
+  }
+
+  .bt-hero-data {
+    min-height: 0;
+  }
+
+  .bt-features {
+    padding: 77px 0 85px;
+  }
+
+  .bt-feature {
+    min-height: 258px;
+  }
+
+  .bt-workflow {
+    padding: 77px 0;
+  }
+
+  .bt-footer-cta h2 {
+    font-size: 34px;
+  }
+}
+
+@media (max-width: 375px) {
+  .bt-hero h1 {
+    font-size: 34px;
+  }
+}

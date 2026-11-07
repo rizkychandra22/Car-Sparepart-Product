@@ -1,128 +1,84 @@
-# AutoPart Central
+# PARTSCOPE — Frontend Migration
 
-> **Portal Katalog Suku Cadang Mobil & Manajemen Inventaris Gudang**  
-> Aplikasi modern berbasis React 19, TypeScript, Tailwind CSS v4, dan Turborepo yang dirancang untuk performa tinggi, modularitas, dan pengalaman belanja suku cadang otomotif yang presisi.
+Proyek ini adalah frontend React + Vite yang sedang disiapkan untuk migrasi tampilan aplikasi **PARTSCOPE** dari PHP Native. Target migrasi adalah mempertahankan tampilan dan alur halaman sumber, sambil mengganti implementasi frontend ke React. Migrasi ini tidak mencakup backend.
 
----
+> **Status saat ini:** landing page dan login PARTSCOPE sudah diimplementasikan. Katalog dan data 5.239 baris belum dimigrasikan. Lihat [roadmap migrasi](docs/tasks/roadmap.md).
 
-## 🚀 Fitur Utama
+## Batas Cakupan
 
-- **Katalog Suku Cadang Presisi**:
-  - Filter kategori suku cadang (Pengereman, Mesin, Kelistrikan, Suspensi, Transmisi, Filter & Oli).
-  - Filter merk otomotif (Brembo, Denso, Bosch, Gates, Kayaba, Aisin, Motul).
-  - Pencarian fleksibel berdasarkan nama komponen, nomor part resmi OEM, atau model mobil (Avanza, Innova, Pajero, dsb.).
-  - Sorting produk berdasarkan popularitas, rating, harga terendah, dan harga tertinggi.
-- **Kartu Produk Reusable (`ProductCard`)**:
-  - Informasi nomor part, rating, status best-seller, kecocokan mobil, harga diskon, dan stok fisik.
-  - Handler proteksi gambar rusak (*fallback error handling*).
-  - Dialog detail spesifikasi teknis lengkap dengan tabel kompatibilitas kendaraan.
-- **Keranjang Belanja Reaktif (`CartContext`)**:
-  - Sinkronisasi otomatis ke `localStorage` (data tidak hilang saat refresh).
-  - Slide-over drawer laci keranjang (`CartSheet`) dengan pengatur kuantitas.
-  - Perhitungan otomatis subtotal, PPN 11%, estimasi ongkos kirim gratis, dan grand total.
-  - Notifikasi toast Sonner dengan sistem anti-duplikasi.
-- **Checkout & Konfirmasi Pesanan (`CheckoutDialog`)**:
-  - Formulir data penerima pesanan dan tipe kendaraan.
-  - Pilihan metode pembayaran instan (QRIS, Transfer Bank, COD).
-  - Tanda terima ringkasan pesanan dengan nomor order unik.
-- **Navigasi Responsif & Mobile UX**:
-  - Mode mobile dilengkapi toggle menu floating drawer solid non-transparan dengan backdrop dim yang ramah sentuhan.
-  - Indikator menu aktif dengan efek ping dot modern.
-- **Panel Autentikasi & Manajemen Gudang**:
-  - Halaman login admin (`LoginPage`) dengan show/hide password dan pintasan akun demo.
-  - Dashboard stok & inventaris (`DashboardPage`) dengan ringkasan KPI (total SKU, total unit fisik, dan estimasi nilai aset).
+- Frontend saja: React, routing, komponen, styling, dan interaksi di browser.
+- Data katalog ditargetkan disimpan lokal dalam modul TypeScript atau berkas JSON; tidak ada API atau database pada hasil migrasi ini.
+- Tampilan yang menjadi acuan adalah halaman PHP PARTSCOPE: landing page, login, dan katalog master data.
+- Login pada frontend hanya simulasi navigasi. Tanpa backend, halaman tidak dapat memverifikasi akun atau melindungi data.
+- Fitur toko online seperti keranjang, checkout, pembayaran, rating, harga jual, dan stok gudang tidak termasuk target migrasi saat ini.
 
----
+## Kondisi Implementasi Saat Ini
 
-## 🛠️ Tech Stack & Ekosistem
+- `/` memakai `src/layouts/guest.tsx` dan `src/pages/landing-home.tsx`; login `/login` dirender terpisah tanpa Guest layout.
+- Landing dipecah menjadi section langsung di `src/features/landing/` (hero, statistik, fitur, alur, dan CTA).
+- `src/pages/auth/login.tsx` memakai komponen Input, Label, Button, serta ikon Lucide. Submit memberi tahu bahwa autentikasi belum tersedia.
+- CSS dan aset hexagon dari PHP disalin ke `src/styles/` untuk mempertahankan desain PARTSCOPE.
+- Katalog `src/pages/index-parts.tsx` dan data `src/data/parts.ts` masih kosong. Data 5.239 baris dan perilaku katalog belum dimigrasikan.
 
-| Layer | Teknologi | Keterangan |
-| :--- | :--- | :--- |
-| **Framework** | [React 19](https://react.dev/) | Library UI terkini dengan fitur hooks & lazy routing |
-| **Language** | [TypeScript 5.8](https://www.typescriptlang.org/) | Pengetikan statis ketat tanpa `any` |
-| **Build Tool** | [Vite 8](https://vite.dev/) | Bundler modern dengan manual chunk splitting |
-| **Pipeline & Cache** | [Turborepo v2](https://turbo.build/repo) | Orkestrasi task kompilasi dan linting ter-cache |
-| **Styling** | [Tailwind CSS v4](https://tailwindcss.com/) | Engine utility-first CSS performa tinggi |
-| **Design System** | [shadcn/ui](https://ui.shadcn.com/) (Nova Preset) | Komponen UI atomik berbasis Radix UI |
-| **Typography** | [Geist Variable](https://vercel.com/font) | Tipografi bersih dan modern |
-| **Icons** | [Lucide React](https://lucide.dev/) | Library icon SVG tree-shakeable |
-| **Toaster** | [Sonner](https://sonner.emilkowal.ski/) | Sistem toast notification interaktif |
+Detail arsitektur dan perbedaan model data tercatat di [frontend-system.md](docs/architecture/frontend-system.md).
 
----
+## Tech Stack
 
-## 📁 Struktur Direktori
+| Bagian | Teknologi yang terpasang |
+| --- | --- |
+| UI | React 19, TypeScript |
+| Dev server dan build | Vite 8, plugin React |
+| Routing | React Router DOM 7 |
+| Styling | Tailwind CSS 4, shadcn, Radix UI |
+| Ikon dan notifikasi | Lucide React, Sonner |
+| Task runner | Turborepo |
+
+Versi dependensi dan script otoritatif berada di [package.json](package.json). Data katalog ditargetkan berada di `src/data/`; folder `src/constans/` sudah tidak ada pada struktur saat ini.
+
+## Struktur Direktori
 
 ```text
-Car-Sparepart-Product/
-├── docs/                   # Dokumentasi arsitektur dan perencanaan proyek
-│   ├── architecture/       # Ketentuan teknis, panduan kode, dan boundary rules
-│   │   ├── frontend-system.md
-│   │   └── README.md
-│   └── planning/           # Rencana pengembangan dan roadmap fitur
-│       └── roadmap.md
-├── public/                 # Aset statis publik
-├── src/
-│   ├── components/
-│   │   ├── ui/             # Primitif UI atomik shadcn / Radix UI
-│   │   └── common/         # Komponen presentasi bersama (ProductCard, CartSheet, CheckoutDialog, dsb.)
-│   ├── constans/           # Mock data katalog suku cadang dan kategori terpusat
-│   ├── context/            # React Context untuk state keranjang (cart-context)
-│   ├── layouts/            # Tata letak utama (guest.tsx dengan responsive navbar & drawer)
-│   ├── pages/              # Halaman rute (web.tsx, dashboard.tsx, auth/login.tsx)
-│   ├── types/              # Definisi kontrak tipe TypeScript murni
-│   ├── App.tsx             # Routing utama dengan React.lazy() & Suspense
-│   ├── index.css           # Konfigurasi Tailwind CSS v4 & custom utility
-│   └── main.tsx            # Entry point aplikasi
-├── package.json            # Dependensi dan script pipeline
-├── turbo.json              # Konfigurasi caching Turborepo
-└── vite.config.ts          # Konfigurasi Vite & chunking vendor
+src/
+├── App.tsx                 # Router, provider global, lazy route
+├── main.tsx                # Entry point React
+├── pages/
+│   ├── landing-home.tsx    # Komposisi landing
+│   ├── index-parts.tsx     # Placeholder halaman katalog
+│   └── auth/login.tsx      # Login demo tanpa backend
+├── features/landing/       # Section landing dalam file terpisah
+├── layouts/guest.tsx       # Layout landing, navigasi, dan footer
+├── components/
+│   ├── common/             # Saat ini hanya ErrorBoundary
+│   └── ui/                 # Primitif UI
+├── data/parts.ts           # Placeholder data katalog, belum diisi
+├── styles/                 # CSS acuan PHP, tuning ukuran, dan aset hexagon
+├── hooks/                  # Hook bersama
+├── lib/                    # Utilitas
+└── index.css               # Tailwind dan token desain
+docs/
+├── architecture/           # Kondisi arsitektur dan target migrasi
+└── tasks/                  # Checklist pekerjaan migrasi
 ```
 
----
+## Menjalankan Proyek
 
-## ⚙️ Panduan Menjalankan Proyek
+Prasyarat: Node.js dan npm sesuai `packageManager` di `package.json`.
 
-### Prasyarat
-- Node.js versi 20.x atau yang lebih baru.
-- npm versi 10.x atau 12.x.
-
-### Instalasi Dependensi
 ```bash
 npm install
-```
-
-### Development Server
-Jalankan server pengembangan lokal:
-```bash
 npm run dev
 ```
-Akses aplikasi melalui browser di `http://localhost:5173`.
 
-### Eksekusi Task Turborepo
+Perintah pengembangan lain:
 
 ```bash
-# Menjalankan build produksi ter-cache oleh Turborepo
-npm run build
-
-# Menjalankan ESLint ter-cache oleh Turborepo
-npm run lint
-
-# Menjalankan pengecekan tipe data TypeScript murni
-npm run typecheck
-
-# Menjalankan preview server lokal dari folder dist/
-npm run preview
+npm run build       # Build TypeScript dan Vite melalui Turborepo
+npm run lint        # ESLint melalui Turborepo
+npm run typecheck   # Pemeriksaan tipe TypeScript
+npm run preview     # Sajikan hasil build dari dist/
 ```
 
----
+## Dokumentasi
 
-## 📚 Dokumentasi Lanjutan
-
-Untuk membaca ketentuan teknis lebih mendalam dan arah pengembangan fitur:
-- 📖 **[Ketentuan Arsitektur & Sistem Frontend](docs/architecture/frontend-system.md)**
-- 🗺️ **[Roadmap & Rencana Pengembangan Fitur](docs/tasks/roadmap.md)**
-
----
-
-## 📄 Lisensi
-Proyek ini dikembangkan sebagai purwarupa katalog suku cadang mobil dan portofolio profesional. Hak cipta dilindungi undang-undang.
+- [Arsitektur frontend dan kontrak data target](docs/architecture/frontend-system.md)
+- [Roadmap dan task migrasi](docs/tasks/roadmap.md)

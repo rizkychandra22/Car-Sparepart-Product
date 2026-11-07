@@ -1,89 +1,56 @@
-# Roadmap & Catatan Perencanaan Pengembangan (AutoPart Central)
+# Roadmap Migrasi Frontend PARTSCOPE
 
-Dokumen ini memetakan tahapan rilis, prioritas fitur, dan rencana pengembangan teknis untuk proyek AutoPart Central dari tahap purwarupa (MVP) hingga sistem produksi skala penuh.
+Checklist pengembangan frontend React + Vite dari aplikasi PHP Native. Perubahan backend tidak termasuk.
 
----
+## Cakupan
 
-## Ringkasan Tahapan Pengembangan
+- Pertahankan tampilan halaman PHP PARTSCOPE.
+- Pindahkan landing, login sebagai demo UI, dan katalog data master.
+- Simpan dataset 5.239 baris secara lokal; pencarian dan filter berjalan di browser.
+- Tidak membangun API, database, autentikasi nyata, transaksi, checkout, pembayaran, atau manajemen stok.
 
-```mermaid
-flowchart LR
-    Fase1["Fase 1: Fondasi & Storefront (Selesai)"] --> Fase2["Fase 2: Backend API & Autentikasi"]
-    Fase2 --> Fase3["Fase 3: Payment Gateway & Notifikasi"]
-    Fase3 --> Fase4["Fase 4: Filter Kompatibilitas VIN"]
-    Fase4 --> Fase5["Fase 5: Manajemen Multi-Gudang & Logistik"]
-```
+## Progres
 
----
+- [x] Tinjau aplikasi PHP dan struktur proyek React.
+- [x] Hapus storefront mock lama dari working tree.
+- [x] Implementasikan landing page dan pecah kontennya menjadi section terpisah langsung di `src/features/landing/`.
+- [x] Refactor `Guest` menjadi layout landing dengan navigasi mobile dan footer PARTSCOPE.
+- [x] Implementasikan login demo terpisah dari `Guest`; gunakan Input, Label, Button, dan ikon Lucide.
+- [x] Sambungkan route `/` dan `/login`; hapus provider cart/dashboard dari `App.tsx`.
+- [x] Gunakan kembali CSS dan aset hexagon dari frontend PHP sebagai acuan desain.
+- [x] Sesuaikan skala landing sedikit lebih kecil tanpa mengubah layout dan palet utama.
+- [ ] Implementasikan halaman katalog dan sambungkan route katalog.
+- [ ] Impor dataset penuh dan implementasikan pencarian/filter katalog.
 
-## Fase 1: Fondasi, Desain Sistem & Storefront UI *(Status: Selesai)*
+## Fase 0 — Referensi Visual
 
-Fokus utama adalah menyiapkan arsitektur frontend yang rapi, cepat, dan teruji secara tampilan serta UX:
-- [x] Inisialisasi Vite 8 + React 19 + TypeScript + Tailwind CSS v4.
-- [x] Integrasi UI library shadcn/ui dengan Nova styling preset dan ikon Lucide React.
-- [x] Setup pipeline Turborepo (`turbo.json`) untuk task `build`, `lint`, dan `typecheck`.
-- [x] Pembuatan data model TypeScript terstruktur di `src/types/` (`product.ts`, `cart.ts`, `order.ts`).
-- [x] Sentralisasi mock data katalog suku cadang di `src/constans/`.
-- [x] Pembuatan Global State Management Keranjang (`cart-context.tsx`) terhubung `localStorage` dan Sonner toast.
-- [x] Pemisahan komponen reusable (`ProductCard`, `CartSheet`, `CheckoutDialog`, `ErrorBoundary`) ke `src/components/common/`.
-- [x] Halaman Katalog Storefront (`src/pages/web.tsx`) dengan filter kategori, brand, search, dan sorting.
-- [x] Mobile Navigation Drawer solid non-transparan dengan backdrop overlay gelap.
-- [x] Halaman Login Admin ergonomis (`src/pages/auth/login.tsx`) dengan toggle password dan demo credentials.
-- [x] Halaman Dashboard Manajemen Stok (`src/pages/dashboard.tsx`) dengan KPI cards dan tabel inventaris.
+- [x] Tetapkan aplikasi PHP (`app/Views` dan `public/assets`) sebagai sumber utama landing dan login.
+- [ ] Catat screenshot dan viewport landing, login, dan katalog pada desktop serta mobile.
+- [ ] Tetapkan path route katalog final.
 
----
+## Fase 1 — Data Master
 
-## Fase 2: Backend REST API & Autentikasi Nyata *(Tahap Berikutnya)*
+- [ ] Siapkan 5.239 baris dataset terverifikasi di `src/data/`.
+- [ ] Buat tipe `SparePart` dan pemetaan semua kolom sumber.
+- [ ] Pertahankan nilai kosong; jangan menambahkan stok, rating, harga pasar, atau kompatibilitas.
+- [ ] Bentuk opsi filter dari nilai dataset.
 
-Mengganti dummy data statis dengan komunikasi API server nyata:
-- [ ] **API Client Setup**:
-  - Konfigurasi HTTP Client berbasis `Axios` atau native `fetch` wrapper dengan request/response interceptors.
-  - Penanganan token JWT otomatis (*Bearer Authorization*) dan handling error response `401 Unauthorized`.
-- [ ] **Sistem Autentikasi & Session**:
-  - Endpoint `/api/auth/login`, `/api/auth/logout`, dan `/api/auth/me`.
-  - Role-based Access Control (RBAC): Membedakan role `Admin Gudang`, `Kasir/Sales`, dan `Customer`.
-  - Proteksi rute dashboard melalui `ProtectedRoute` wrapper component.
-- [ ] **Katalog & Inventory CRUD Endpoints**:
-  - Endpoint GET `/api/products` dengan server-side pagination, search, dan multi-filter.
-  - Endpoint POST/PUT/DELETE `/api/products` untuk tambah/edit stok sparepart beserta upload gambar produk.
-  - Validasi payload input menggunakan skema `Zod`.
+Kolom sumber: `source_excel_row`, `hyundai_type`, `brand`, `vehicle_type`, `part_name_original`, `part_description_competitor`, `part_group`, `category`, `estimated_moving`, `part_number`, `price`, `price_source_text`, dan `part_number_status`. Brand adalah kendaraan pembanding; harga tidak mencantumkan mata uang/tanggal.
 
----
+## Fase 2 — Katalog dan Interaksi
 
-## Fase 3: Transaksi, Payment Gateway & Notifikasi Otomatis
+- [ ] Bangun katalog di `src/pages/index-parts.tsx` dengan komponen kecil di feature katalog.
+- [ ] Implementasikan keyword search nama, deskripsi, dan nomor part.
+- [ ] Implementasikan filter Hyundai Type, Brand, Vehicle Type, Part Group, kategori, estimated moving, status, nomor part, rentang harga, memiliki harga, dan memiliki nomor part.
+- [ ] Implementasikan sorting urutan sumber, nama A–Z, brand A–Z, harga rendah/tinggi.
+- [ ] Implementasikan pagination 25 baris, jumlah hasil, reset filter, dan empty state.
+- [ ] Implementasikan filter drawer mobile dan tabel/layout responsif.
+- [ ] Pertimbangkan query string untuk state pencarian, filter, sorting, dan halaman.
 
-Menjadikan alur checkout berfungsi secara komersial:
-- [ ] **Integrasi Payment Gateway**:
-  - Menghubungkan proses checkout dengan Payment Gateway resmi Indonesia (Midtrans Snap API atau Xendit Invoice).
-  - Pilihan metode bayar otomatis: QRIS Instan (GoPay, OVO, Dana), Virtual Account Bank (BCA, Mandiri, BRI, BNI), dan COD.
-- [ ] **Webhook Listener**:
-  - Menerima callback status pembayaran (`settlement`, `pending`, `expire`, `cancel`).
-  - Update status pesanan secara real-time pada dashboard admin.
-- [ ] **Notifikasi Transaksi WhatsApp**:
-  - Mengirim invoice digital dan detail pesanan ke WhatsApp pembeli segera setelah checkout berhasil.
-  - Mengirim alert instan ke grup logistik gudang untuk pemrosesan suku cadang yang telah dibayar.
+## Fase 3 — Pemeriksaan
 
----
-
-## Fase 4: Filter Kompatibilitas Kendaraan Canggih (VIN & Part Matching)
-
-Memberikan kemudahan maksimal bagi pemilik mobil menemukan part yang 100% pas:
-- [ ] **Pencarian Berdasarkan Nomor Rangka (VIN Decoder)**:
-  - Input 17 digit VIN mobil untuk mendeteksi tipe mesin, kode bodi, dan tahun rakitan secara akurat.
-- [ ] **Filter Bertingkat Terintegrasi**:
-  - Pemilihan berurutan: `Merk Mobil` &rarr; `Model` &rarr; `Tahun Pembuatan` &rarr; `Varian Mesin/Transmisi`.
-- [ ] **Badge Jaminan Kompatibilitas (*Fitment Guarantee*)**:
-  - Indikator hijau visual *"Pasti Pas untuk Mobil Anda"* di setiap card produk jika kendaraan pengguna sesuai dengan katalog.
-
----
-
-## Fase 5: Manajemen Multi-Gudang & Operasional Logistik
-
-Mendukung operasional toko offline dan pergudangan fisik skala besar:
-- [ ] **Pelacakan Lokasi Rak & Multi-Warehouse**:
-  - Catatan lokasi rak penyimpanan sparepart (contoh: *Gudang Cikarang - Rak B3-04*).
-- [ ] **Manajemen Mutasi Stok & Stock Opname**:
-  - Riwayat barang masuk (inbound vendor), barang keluar (order penjualan), dan penyesuaian selisih fisik (*opname*).
-  - Peringatan stok menipis (*low stock warning threshold*).
-- [ ] **Cetak Dokumen Pengiriman**:
-  - Generator Surat Jalan, Label Resi Pengiriman (Barcode/QR), dan Cetak Invoice PDF resmi.
+- [ ] Cocokkan landing dan login dengan screenshot acuan pada desktop/mobile.
+- [ ] Periksa fokus keyboard, label form, status pesan, dan menu mobile.
+- [ ] Pastikan login jelas ditandai sebagai demo tanpa autentikasi backend.
+- [ ] Jalankan build, lint, dan typecheck setelah implementasi katalog.
+- [ ] Perbarui README dan arsitektur saat fitur katalog selesai.
