@@ -1,12 +1,15 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "tasks": {
-    "build": {
+    "typecheck": {
+      "inputs": ["src/**/*.ts", "src/**/*.tsx", "tsconfig*.json"]
+    },
+    "build:task": {
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
       "outputs": ["dist/**"]
     },
-    "lint": {
-      "inputs": ["$TURBO_DEFAULT$"]
+    "lint:task": {
+      "inputs": ["src/**/*.ts", "src/**/*.tsx", "eslint.config.*"]
     },
     "dev": {
       "cache": false,
@@ -18,4 +21,3 @@
     }
   }
 }
-
