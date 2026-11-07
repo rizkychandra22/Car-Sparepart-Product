@@ -1,4 +1,5 @@
 import { Card } from "@/components/ui/card"
+import { cn } from "@/lib/utils"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -42,7 +43,7 @@ interface PartsFilterPanelProps {
 
 export function PartsFilterPanel({ values, fields, activeCount, isOpen, onChange, onClose, onReset }: PartsFilterPanelProps) {
   return (
-    <Card className={`filter-panel gap-0 ring-0${isOpen ? " is-open" : ""}`} id="catalog-sidebar" role="complementary" aria-label="Filter pencarian">
+    <Card className={cn(`filter-panel gap-0 ring-0${isOpen ? " is-open" : ""} [&.is-open]:[transform:translateX(0)] bg-white [border:1px_solid_#e2e9eb] rounded-[11px] p-[22px_19px_20px] shadow-[0_8px_26px_#13344206] max-[900px]:fixed max-[900px]:[inset:0_auto_0_0] max-[900px]:w-[min(350px,91vw)] max-[900px]:z-[90] max-[900px]:overflow-auto max-[900px]:rounded-none max-[900px]:shadow-[14px_0_40px_#0c1d3155] max-[900px]:[transform:translateX(-105%)] max-[900px]:transition-[transform_.23s_ease] max-[900px]:[&_.filter-section]:p-[12px_0] gap-0 max-[760px]:[scrollbar-width:none] max-[760px]:[-ms-overflow-style:none] max-[760px]:[&::-webkit-scrollbar]:hidden`)} id="catalog-sidebar" role="complementary" aria-label="Filter pencarian">
       <div className="filter-head">
         <div>
           <span className="filter-label">SEARCH PARAMETERS</span>
@@ -66,9 +67,18 @@ export function PartsFilterPanel({ values, fields, activeCount, isOpen, onChange
               <SelectTrigger id={field.key} className="filter-control parts-filter-select" size="sm">
                 <SelectValue placeholder={`Semua ${field.label}`} />
               </SelectTrigger>
-              <SelectContent className="parts-select-content">
-                <SelectItem className="parts-select-item" value="all">Semua {field.label}</SelectItem>
-                {field.options.map((option) => <SelectItem className="parts-select-item" key={option} value={option}>{option}</SelectItem>)}
+              <SelectContent className={cn(`
+                parts-select-content p-[4px] [border:1px_solid_#dfe8e9] rounded-[6px] bg-[#fff]
+                shadow-[0_8px_20px_#18304418]
+              `)}>
+                <SelectItem className={cn(`
+                  parts-select-item min-h-[32px] rounded-none text-[#30495a] text-[12px]
+                  [&[data-highlighted]]:bg-[#edf5f1] [&[data-highlighted]]:text-[#214c42]
+                `)} value="all">Semua {field.label}</SelectItem>
+                {field.options.map((option) => <SelectItem className={cn(`
+                  parts-select-item min-h-[32px] rounded-none text-[#30495a] text-[12px]
+                  [&[data-highlighted]]:bg-[#edf5f1] [&[data-highlighted]]:text-[#214c42]
+                `)} key={option} value={option}>{option}</SelectItem>)}
               </SelectContent>
             </Select>
           </div>
@@ -90,7 +100,14 @@ export function PartsFilterPanel({ values, fields, activeCount, isOpen, onChange
       </div>
 
       <div className="filter-actions">
-        <Button className="button button-ink filter-submit" type="submit">Terapkan filter <span aria-hidden="true">↗</span></Button>
+        <Button className={cn(`
+          button button-ink filter-submit inline-flex items-center
+          justify-between gap-[24px] [border:1px_solid_transparent] rounded-[7px] p-[14px_20px]
+          font-[730] text-[13px] tracking-[-.015em] whitespace-nowrap transition-[transform_.16s,background_.16s,box-shadow_.16s]
+          [&:hover]:[transform:translateY(-2px)] [&_span]:text-[17px] max-[740px]:px-[15px] max-[740px]:text-[12px] max-[740px]:gap-[11px]
+          max-[410px]:px-[11px] max-[410px]:text-[11px] bg-[var(--ink)] text-[#fff] [&:hover]:bg-[#1d3756]
+          [&:hover]:shadow-[0_8px_23px_#0d233122]
+        `)} type="submit">Terapkan filter <span aria-hidden="true">↗</span></Button>
         <Button variant="link" className="reset-link" type="button" onClick={onReset}>↺ Reset semua filter</Button>
       </div>
     </Card>
