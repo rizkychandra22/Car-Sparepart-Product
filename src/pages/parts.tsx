@@ -1,6 +1,6 @@
 import { useMemo, useState, type FormEvent } from "react"
 import { Link } from "react-router-dom"
-import { Search } from "lucide-react"
+import { Search, X } from "lucide-react"
 import { Brand } from "@/components/common/brand"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -145,6 +145,11 @@ export default function PartsPage() {
     setAppliedFilters((current) => ({ ...current, sort }))
   }
 
+  function updateQuery(query: string) {
+    updateDraft("query", query)
+    setAppliedFilters((current) => ({ ...current, query }))
+  }
+
   return (
     <>
       <header className="site-header is-app-header">
@@ -207,9 +212,13 @@ export default function PartsPage() {
                       aria-label="Cari nama, deskripsi, atau nomor part"
                       placeholder="Cari nama part, deskripsi, atau nomor part..."
                       value={draftFilters.query}
-                      onChange={(event) => updateDraft("query", event.target.value)}
+                      onChange={(event) => updateQuery(event.target.value)}
                     />
-                    <Button type="submit">Cari <span aria-hidden="true">↗</span></Button>
+                    {draftFilters.query && (
+                      <button className="toolbar-search-clear" type="button" aria-label="Hapus keyword pencarian" onClick={() => updateQuery("")}>
+                        <X aria-hidden="true" />
+                      </button>
+                    )}
                   </div>
                   <div className="toolbar-sort">
                     <label htmlFor="sort">Urutkan</label>
