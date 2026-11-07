@@ -7,7 +7,7 @@ Dokumen ini membedakan bagian yang sudah diimplementasikan dari target migrasi k
 - Landing, tampilan login, dan katalog master spare parts mengikuti halaman PHP Native PARTSCOPE.
 - Data katalog disimpan lokal di frontend dan diproses di browser.
 - Tidak ada backend/API/database atau autentikasi server dalam cakupan ini.
-- Form login hanya demonstrasi frontend; tidak memverifikasi akun.
+- Form login hanya mencocokkan satu akun demo statis di browser; tidak membuat sesi aman atau memverifikasi identitas lewat server.
 
 ## 2. Stack dan Routing
 
@@ -28,6 +28,7 @@ Katalog belum tersambung ke route.
 ```text
 src/
 ├── App.tsx
+├── App.css                    # CSS dasar PARTSCOPE dari PHP
 ├── main.tsx
 ├── pages/
 │   ├── landing-home.tsx       # Merangkai section landing
@@ -45,13 +46,14 @@ src/
 │   ├── common/error-boundary.tsx
 │   └── ui/                    # Primitif UI yang tersedia
 ├── data/parts.ts              # SparePart type + 5,239 static records
-├── styles/css/                # CSS acuan PHP dan tuning ukuran landing
-├── styles/img/                # Pattern hexagon
+├── data/user.ts               # Satu akun demo lokal untuk form login
+├── assets/styles/             # Theme landing, auth, dan tuning ukuran
+├── assets/img/                # Pattern hexagon
 ├── hooks/
 └── lib/
 ```
 
-`src/main.tsx` memuat stylesheet `app.css` dan `home-tech.css` yang diambil dari aplikasi PHP untuk mempertahankan gaya visual, lalu `landing-tuning.css` untuk sedikit mengecilkan skala layout. Struktur section landing dipisah langsung di `features/landing`; halaman hanya bertugas menyusun section. Login menggunakan komponen Input, Label, dan Button dari UI React yang tersedia serta ikon Lucide.
+`src/main.tsx` memuat `index.css` untuk Tailwind/shadcn, `App.css` sebagai CSS dasar dari aplikasi PHP, lalu stylesheet landing dan auth dari `src/assets/styles/`. Pattern hexagon berada di `src/assets/img/`. Struktur section landing dipisah langsung di `features/landing`; halaman hanya bertugas menyusun section. Login menggunakan komponen Input, Label, dan Button dari UI React yang tersedia serta ikon Lucide.
 
 `Guest` hanya dipakai landing. Login dirender sebagai route tersendiri agar tidak mendapat header dan footer landing.
 

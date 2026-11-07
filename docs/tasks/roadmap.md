@@ -20,6 +20,7 @@ Checklist pengembangan frontend React + Vite dari aplikasi PHP Native. Perubahan
 - [x] Gunakan kembali CSS dan aset hexagon dari frontend PHP sebagai acuan desain.
 - [x] Sesuaikan skala landing sedikit lebih kecil tanpa mengubah layout dan palet utama.
 - [x] Impor 5.239 record sumber ke `src/data/parts.ts` sebagai mock frontend bertipe.
+- [x] Tambahkan satu user demo di `src/data/user.ts` dan validasi lokal pada form login.
 - [ ] Implementasikan halaman katalog dan sambungkan route katalog.
 - [ ] Implementasikan pencarian/filter katalog di browser.
 

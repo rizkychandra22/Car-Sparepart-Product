@@ -5,14 +5,30 @@ import { Brand } from "@/components/common/brand"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { USERS } from "@/data/user"
+
+type LoginNotice = {
+  type: "success" | "error"
+  message: string
+}
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false)
-  const [notice, setNotice] = useState("")
+  const [notice, setNotice] = useState<LoginNotice | null>(null)
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    setNotice("Login belum terhubung ke backend. Form ini hanya tampilan demo.")
+
+    const formData = new FormData(event.currentTarget)
+    const email = String(formData.get("email") ?? "").trim().toLowerCase()
+    const password = String(formData.get("password") ?? "")
+    const matchedUser = USERS.find(
+      (user) => user.email.toLowerCase() === email && user.password === password
+    )
+
+    setNotice(matchedUser
+      ? { type: "success", message: "Login demo berhasil. Kredensial diperiksa secara lokal di browser." }
+      : { type: "error", message: "Email atau password tidak sesuai dengan akun demo." })
   }
 
   return (
@@ -43,9 +59,16 @@ export default function LoginPage() {
         <div className="auth-form-content">
           <div className="form-kicker">WELCOME <span>— 01</span></div>
           <h1 id="login-title">Masuk ke akun<br /><em>PARTSCOPE.</em></h1>
-          <p className="form-subtitle">Gunakan akun workspace untuk membuka katalog master data. Pada versi frontend ini, autentikasi belum tersedia.</p>
+          <p className="form-subtitle">Masuk menggunakan akun demo untuk mencoba alur login frontend PARTSCOPE.</p>
 
-          {notice && <div role="status" className="form-alert"><span>i</span>{notice}</div>}
+          {notice && (
+            <div
+              role={notice.type === "error" ? "alert" : "status"}
+              className={`form-alert ${notice.type === "success" ? "form-alert-success" : ""}`}
+            >
+              <span>{notice.type === "success" ? "✓" : "!"}</span>{notice.message}
+            </div>
+          )}
 
           <form className="login-form" autoComplete="on" onSubmit={handleSubmit}>
             <Label htmlFor="email">Alamat email</Label>
@@ -70,7 +93,7 @@ export default function LoginPage() {
             </div>
 
             <Button type="submit" className="button button-ink login-submit">Masuk ke workspace <span aria-hidden="true">↗</span></Button>
-            <p className="login-help">Login hanya berupa demo antarmuka dan tidak memvalidasi akun.</p>
+            <p className="login-help">Login demo memakai satu akun statis di browser; tidak membuat sesi backend.</p>
           </form>
         </div>
 
