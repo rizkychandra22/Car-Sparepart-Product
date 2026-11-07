@@ -2,7 +2,7 @@
 
 Proyek ini adalah frontend React + Vite yang sedang disiapkan untuk migrasi tampilan aplikasi **PARTSCOPE** dari PHP Native. Target migrasi adalah mempertahankan tampilan dan alur halaman sumber, sambil mengganti implementasi frontend ke React. Migrasi ini tidak mencakup backend.
 
-> **Status:** fondasi React sudah tersedia, tetapi halaman dan data yang sekarang masih berupa prototipe toko suku cadang. Katalog PARTSCOPE dan data sumber 5.239 baris belum dimigrasikan. Lihat [roadmap migrasi](docs/tasks/roadmap.md) untuk progres dan task berikutnya.
+> **Status saat ini:** struktur lama storefront sedang diganti. File halaman landing dan katalog serta modul data baru sudah dibuat, tetapi ketiganya masih kosong. Router dan layout belum disambungkan ke struktur baru, dan data 5.239 baris belum dimigrasikan. Lihat [roadmap migrasi](docs/tasks/roadmap.md).
 
 ## Batas Cakupan
 
@@ -14,12 +14,14 @@ Proyek ini adalah frontend React + Vite yang sedang disiapkan untuk migrasi tamp
 
 ## Kondisi Implementasi Saat Ini
 
-- `src/App.tsx` memakai React Router dengan route `/`, `/login`, dan `/dashboard`; halaman dimuat dengan `React.lazy` dan `Suspense`.
-- `src/pages/web.tsx` adalah storefront mock dengan pencarian, filter kategori/brand, sorting, kartu produk, dan detail produk.
-- `src/constans/products.ts` berisi 8 produk mock bertipe `Product`, bukan data master dari Excel PARTSCOPE.
-- `src/constans/categories.ts` berisi 6 kategori storefront dengan jumlah contoh.
-- Login mengarahkan ke dashboard dengan simulasi jeda. Dashboard menampilkan metrik inventaris dari data mock.
-- `CartProvider`, keranjang, dan checkout masih menjadi bagian prototipe yang ada; semuanya di luar lingkup migrasi yang ditetapkan.
+- Halaman baru: `src/pages/landing/home.tsx` dan `src/pages/app/index-parts.tsx`; keduanya masih file kosong.
+- Data baru: `src/data/parts.ts`; file ini masih kosong dan belum berisi tipe atau dataset.
+- `src/App.tsx` masih mengimpor `src/pages/web`, `src/pages/dashboard`, serta `CartProvider`; target lama itu sudah tidak ada di working tree. Route belum disesuaikan dengan struktur baru.
+- `src/layouts/guest.tsx` juga masih bergantung pada cart dan komponen common yang telah dihapus.
+- `src/pages/auth/login.tsx` masih berisi UI AutoPart Central dan simulasi login yang menuju `/dashboard`; belum disesuaikan dengan tampilan login PARTSCOPE.
+- Tipe storefront lama dan data produk/kategori lama sudah dihapus dari working tree.
+
+Ini adalah kondisi transisi, belum aplikasi migrasi yang tersambung. Task penyambungan dicatat di roadmap.
 
 Detail arsitektur dan perbedaan model data tercatat di [frontend-system.md](docs/architecture/frontend-system.md).
 
@@ -34,7 +36,7 @@ Detail arsitektur dan perbedaan model data tercatat di [frontend-system.md](docs
 | Ikon dan notifikasi | Lucide React, Sonner |
 | Task runner | Turborepo |
 
-Versi dependensi dan script otoritatif berada di [package.json](package.json). Direktori `src/constans` memakai ejaan yang sudah ada di kode; perubahan nama dapat dilakukan terpisah bila memang dibutuhkan.
+Versi dependensi dan script otoritatif berada di [package.json](package.json). Data baru direncanakan di `src/data/`; folder `src/constans/` sudah tidak ada pada struktur saat ini.
 
 ## Struktur Direktori
 
@@ -42,14 +44,15 @@ Versi dependensi dan script otoritatif berada di [package.json](package.json). D
 src/
 ├── App.tsx                 # Router, provider global, lazy route
 ├── main.tsx                # Entry point React
-├── pages/                  # Storefront, login, dashboard
-├── layouts/                # Layout halaman publik
+├── pages/
+│   ├── app/index-parts.tsx # Placeholder halaman katalog
+│   ├── landing/home.tsx    # Placeholder landing page
+│   └── auth/login.tsx      # Login lama, belum disesuaikan
+├── layouts/                # Guest layout lama, masih perlu disesuaikan
 ├── components/
-│   ├── common/             # ProductCard, cart, checkout, ErrorBoundary
+│   ├── common/             # Saat ini hanya ErrorBoundary
 │   └── ui/                 # Primitif UI
-├── constans/               # Data mock produk dan kategori saat ini
-├── context/                # State keranjang
-├── types/                  # Tipe produk, order, keranjang
+├── data/parts.ts           # Placeholder data katalog, belum diisi
 ├── hooks/                  # Hook bersama
 ├── lib/                    # Utilitas
 └── index.css               # Tailwind dan token desain
