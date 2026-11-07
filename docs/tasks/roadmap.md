@@ -1,67 +1,56 @@
 # Roadmap Migrasi Frontend PARTSCOPE
 
-Daftar tugas ini mengikuti kondisi working tree. Membuat file placeholder belum berarti halaman, route, atau dataset telah dimigrasikan.
+Checklist pengembangan frontend React + Vite dari aplikasi PHP Native. Perubahan backend tidak termasuk.
 
-## Scope
+## Cakupan
 
-- Pindahkan landing, tampilan login, dan katalog master data dari PHP Native ke React + Vite.
-- Pertahankan tampilan/alur sumber PHP dan gunakan data lokal 5.239 baris.
-- Tidak membuat backend/API/database, autentikasi server, transaksi, checkout, pembayaran, atau inventaris.
-- Login frontend hanya demo navigasi, bukan sistem keamanan.
+- Pertahankan tampilan halaman PHP PARTSCOPE.
+- Pindahkan landing, login sebagai demo UI, dan katalog data master.
+- Simpan dataset 5.239 baris secara lokal; pencarian dan filter berjalan di browser.
+- Tidak membangun API, database, autentikasi nyata, transaksi, checkout, pembayaran, atau manajemen stok.
 
-## Status Sekarang
+## Progres
 
-- [x] Review ulang struktur React dan file yang berubah.
-- [x] Hapus file storefront lama dari working tree.
-- [x] Buat placeholder `src/pages/landing/home.tsx`, `src/pages/app/index-parts.tsx`, dan `src/data/parts.ts`.
-- [ ] Isi file placeholder dengan halaman dan dataset.
-- [ ] Sambungkan ulang `App.tsx` dan layout; referensi saat ini masih mengarah ke modul yang sudah dihapus.
+- [x] Tinjau aplikasi PHP dan struktur proyek React.
+- [x] Hapus storefront mock lama dari working tree.
+- [x] Implementasikan landing page dan pecah kontennya menjadi section terpisah langsung di `src/features/landing/`.
+- [x] Refactor `Guest` menjadi layout landing dengan navigasi mobile dan footer PARTSCOPE.
+- [x] Implementasikan login demo terpisah dari `Guest`; gunakan Input, Label, Button, dan ikon Lucide.
+- [x] Sambungkan route `/` dan `/login`; hapus provider cart/dashboard dari `App.tsx`.
+- [x] Gunakan kembali CSS dan aset hexagon dari frontend PHP sebagai acuan desain.
+- [x] Sesuaikan skala landing sedikit lebih kecil tanpa mengubah layout dan palet utama.
+- [ ] Implementasikan halaman katalog dan sambungkan route katalog.
+- [ ] Impor dataset penuh dan implementasikan pencarian/filter katalog.
 
-## Fase 0 — Acuan dan Keputusan
+## Fase 0 — Referensi Visual
 
-- [x] Tetapkan batas frontend-only dan data lokal.
-- [ ] Tetapkan hasil aplikasi PHP (`app/Views` + `public/assets`) sebagai sumber visual final; preview mandiri hanya referensi tambahan karena tampilan katalog berbeda.
-- [ ] Catat screenshot landing, login, katalog desktop, dan katalog mobile beserta ukuran viewport.
-- [ ] Putuskan route target. Rekomendasi: `/`, `/login`, `/parts`.
+- [x] Tetapkan aplikasi PHP (`app/Views` dan `public/assets`) sebagai sumber utama landing dan login.
+- [ ] Catat screenshot dan viewport landing, login, dan katalog pada desktop serta mobile.
+- [ ] Tetapkan path route katalog final.
 
 ## Fase 1 — Data Master
 
-- [ ] Siapkan dataset terverifikasi berisi 5.239 baris di `src/data/parts.ts` atau JSON lokal.
-- [ ] Definisikan tipe `SparePart` sesuai kolom sumber, bukan tipe produk toko.
-- [ ] Petakan: `source_excel_row`, `hyundai_type`, `brand`, `vehicle_type`, `part_name_original`, `part_description_competitor`, `part_group`, `category`, `estimated_moving`, `part_number`, `price`, `price_source_text`, dan `part_number_status`.
-- [ ] Pertahankan nilai kosong; jangan membuat stok, rating, harga pasar, gambar, atau kompatibilitas yang tidak ada.
-- [ ] Bentuk opsi filter dari nilai unik dataset.
+- [ ] Siapkan 5.239 baris dataset terverifikasi di `src/data/`.
+- [ ] Buat tipe `SparePart` dan pemetaan semua kolom sumber.
+- [ ] Pertahankan nilai kosong; jangan menambahkan stok, rating, harga pasar, atau kompatibilitas.
+- [ ] Bentuk opsi filter dari nilai dataset.
 
-## Fase 2 — Router, Layout, dan Halaman
+Kolom sumber: `source_excel_row`, `hyundai_type`, `brand`, `vehicle_type`, `part_name_original`, `part_description_competitor`, `part_group`, `category`, `estimated_moving`, `part_number`, `price`, `price_source_text`, dan `part_number_status`. Brand adalah kendaraan pembanding; harga tidak mencantumkan mata uang/tanggal.
 
-- [ ] Perbarui `src/App.tsx`; hapus import `pages/web`, `pages/dashboard`, dan `CartProvider` yang sudah tidak tersedia.
-- [ ] Ganti `src/layouts/guest.tsx` yang masih bergantung pada cart, checkout, dan konten AutoPart Central.
-- [ ] Implementasikan landing di `src/pages/landing/home.tsx`.
-- [ ] Sesuaikan halaman login PARTSCOPE dan perilakunya menjadi simulasi frontend di `src/pages/auth/login.tsx`.
-- [ ] Implementasikan katalog di `src/pages/app/index-parts.tsx`.
-- [ ] Atur fallback route dan tautan antarhalaman.
-- [ ] Periksa `App.css`, `index.css`, dan aset yang akan dipakai untuk menghindari gaya starter yang tak terpakai.
+## Fase 2 — Katalog dan Interaksi
 
-## Fase 3 — Fitur Katalog
+- [ ] Bangun katalog di `src/pages/index-parts.tsx` dengan komponen kecil di feature katalog.
+- [ ] Implementasikan keyword search nama, deskripsi, dan nomor part.
+- [ ] Implementasikan filter Hyundai Type, Brand, Vehicle Type, Part Group, kategori, estimated moving, status, nomor part, rentang harga, memiliki harga, dan memiliki nomor part.
+- [ ] Implementasikan sorting urutan sumber, nama A–Z, brand A–Z, harga rendah/tinggi.
+- [ ] Implementasikan pagination 25 baris, jumlah hasil, reset filter, dan empty state.
+- [ ] Implementasikan filter drawer mobile dan tabel/layout responsif.
+- [ ] Pertimbangkan query string untuk state pencarian, filter, sorting, dan halaman.
 
-- [ ] Keyword search: nama, deskripsi kompetitor, nomor part.
-- [ ] Filter: Hyundai Type, Brand, Vehicle Type, Part Group, kategori, estimated moving, status.
-- [ ] Filter nomor part, batas harga, memiliki harga, dan memiliki nomor part.
-- [ ] Sorting: sumber, nama A–Z, brand A–Z, harga rendah/tinggi.
-- [ ] Pagination 25 baris, jumlah hasil, reset filter, dan empty state.
-- [ ] Filter drawer mobile dengan backdrop, tombol tutup, dan dukungan keyboard.
-- [ ] Tabel desktop serta tata letak data responsif.
-- [ ] Pertimbangkan query string untuk pencarian, filter, sorting, dan pagination.
+## Fase 3 — Pemeriksaan
 
-## Fase 4 — Pemeriksaan dan Penutupan
-
-- [ ] Cocokkan tampilan dengan screenshot acuan di desktop dan mobile.
-- [ ] Periksa label form, fokus keyboard, empty state, dan teks alternatif.
-- [ ] Pastikan UI tidak mengklaim harga pasar/mata uang, kompatibilitas, stok, atau autentikasi nyata tanpa dasar.
-- [ ] Hapus dependensi storefront lama yang tak lagi digunakan setelah route baru berjalan.
-- [ ] Jalankan build, lint, dan typecheck setelah implementasi.
-- [ ] Perbarui README dan dokumen arsitektur mengikuti hasil akhir.
-
-## Di Luar Scope
-
-Backend/API, database, login aman, akun, CRUD, stok gudang, keranjang, checkout, pembayaran, webhook, notifikasi, dan integrasi VIN ditunda kecuali scope diubah secara eksplisit.
+- [ ] Cocokkan landing dan login dengan screenshot acuan pada desktop/mobile.
+- [ ] Periksa fokus keyboard, label form, status pesan, dan menu mobile.
+- [ ] Pastikan login jelas ditandai sebagai demo tanpa autentikasi backend.
+- [ ] Jalankan build, lint, dan typecheck setelah implementasi katalog.
+- [ ] Perbarui README dan arsitektur saat fitur katalog selesai.

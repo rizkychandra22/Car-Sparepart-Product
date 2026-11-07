@@ -2,7 +2,7 @@
 
 Proyek ini adalah frontend React + Vite yang sedang disiapkan untuk migrasi tampilan aplikasi **PARTSCOPE** dari PHP Native. Target migrasi adalah mempertahankan tampilan dan alur halaman sumber, sambil mengganti implementasi frontend ke React. Migrasi ini tidak mencakup backend.
 
-> **Status saat ini:** struktur lama storefront sedang diganti. File halaman landing dan katalog serta modul data baru sudah dibuat, tetapi ketiganya masih kosong. Router dan layout belum disambungkan ke struktur baru, dan data 5.239 baris belum dimigrasikan. Lihat [roadmap migrasi](docs/tasks/roadmap.md).
+> **Status saat ini:** landing page dan login PARTSCOPE sudah diimplementasikan. Katalog dan data 5.239 baris belum dimigrasikan. Lihat [roadmap migrasi](docs/tasks/roadmap.md).
 
 ## Batas Cakupan
 
@@ -14,14 +14,11 @@ Proyek ini adalah frontend React + Vite yang sedang disiapkan untuk migrasi tamp
 
 ## Kondisi Implementasi Saat Ini
 
-- Halaman baru: `src/pages/landing/home.tsx` dan `src/pages/app/index-parts.tsx`; keduanya masih file kosong.
-- Data baru: `src/data/parts.ts`; file ini masih kosong dan belum berisi tipe atau dataset.
-- `src/App.tsx` masih mengimpor `src/pages/web`, `src/pages/dashboard`, serta `CartProvider`; target lama itu sudah tidak ada di working tree. Route belum disesuaikan dengan struktur baru.
-- `src/layouts/guest.tsx` juga masih bergantung pada cart dan komponen common yang telah dihapus.
-- `src/pages/auth/login.tsx` masih berisi UI AutoPart Central dan simulasi login yang menuju `/dashboard`; belum disesuaikan dengan tampilan login PARTSCOPE.
-- Tipe storefront lama dan data produk/kategori lama sudah dihapus dari working tree.
-
-Ini adalah kondisi transisi, belum aplikasi migrasi yang tersambung. Task penyambungan dicatat di roadmap.
+- `/` memakai `src/layouts/guest.tsx` dan `src/pages/landing-home.tsx`; login `/login` dirender terpisah tanpa Guest layout.
+- Landing dipecah menjadi section langsung di `src/features/landing/` (hero, statistik, fitur, alur, dan CTA).
+- `src/pages/auth/login.tsx` memakai komponen Input, Label, Button, serta ikon Lucide. Submit memberi tahu bahwa autentikasi belum tersedia.
+- CSS dan aset hexagon dari PHP disalin ke `src/styles/` untuk mempertahankan desain PARTSCOPE.
+- Katalog `src/pages/index-parts.tsx` dan data `src/data/parts.ts` masih kosong. Data 5.239 baris dan perilaku katalog belum dimigrasikan.
 
 Detail arsitektur dan perbedaan model data tercatat di [frontend-system.md](docs/architecture/frontend-system.md).
 
@@ -36,7 +33,7 @@ Detail arsitektur dan perbedaan model data tercatat di [frontend-system.md](docs
 | Ikon dan notifikasi | Lucide React, Sonner |
 | Task runner | Turborepo |
 
-Versi dependensi dan script otoritatif berada di [package.json](package.json). Data baru direncanakan di `src/data/`; folder `src/constans/` sudah tidak ada pada struktur saat ini.
+Versi dependensi dan script otoritatif berada di [package.json](package.json). Data katalog ditargetkan berada di `src/data/`; folder `src/constans/` sudah tidak ada pada struktur saat ini.
 
 ## Struktur Direktori
 
@@ -45,14 +42,16 @@ src/
 ├── App.tsx                 # Router, provider global, lazy route
 ├── main.tsx                # Entry point React
 ├── pages/
-│   ├── app/index-parts.tsx # Placeholder halaman katalog
-│   ├── landing/home.tsx    # Placeholder landing page
-│   └── auth/login.tsx      # Login lama, belum disesuaikan
-├── layouts/                # Guest layout lama, masih perlu disesuaikan
+│   ├── landing-home.tsx    # Komposisi landing
+│   ├── index-parts.tsx     # Placeholder halaman katalog
+│   └── auth/login.tsx      # Login demo tanpa backend
+├── features/landing/       # Section landing dalam file terpisah
+├── layouts/guest.tsx       # Layout landing, navigasi, dan footer
 ├── components/
 │   ├── common/             # Saat ini hanya ErrorBoundary
 │   └── ui/                 # Primitif UI
 ├── data/parts.ts           # Placeholder data katalog, belum diisi
+├── styles/                 # CSS acuan PHP, tuning ukuran, dan aset hexagon
 ├── hooks/                  # Hook bersama
 ├── lib/                    # Utilitas
 └── index.css               # Tailwind dan token desain
