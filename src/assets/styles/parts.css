@@ -1,0 +1,68 @@
+.parts-page{min-height:100vh;background:#f4f7f7;color:#183044}
+.parts-app-header{height:73px;background:#fff;border-bottom:1px solid #e7edef}
+.parts-header-inner{width:min(1240px,calc(100% - 48px));height:100%;margin:auto;display:flex;align-items:center;gap:44px}
+.parts-header-inner nav{margin-right:auto}
+.parts-nav-current{display:flex;align-items:center;gap:9px;color:#2c4557;font-size:12px;font-weight:780}
+.parts-nav-current i{width:7px;height:7px;border-radius:2px;background:#57b39a}
+.parts-back-link{display:inline-flex;align-items:center;gap:8px;color:#607786;font-size:12px;font-weight:700}
+.parts-back-link svg{width:16px;height:16px}
+.parts-main{padding-top:32px;padding-bottom:52px}
+.parts-table-card{overflow:hidden;background:#fff;border:1px solid #e2e9eb;border-radius:12px;box-shadow:0 9px 26px #12344308}
+.parts-table-card-head{display:flex;align-items:center;justify-content:space-between;padding:22px 24px;border-bottom:1px solid #e9eff0}
+.parts-table-eyebrow{margin:0 0 6px;color:#8498a2;font-size:9px;font-weight:900;letter-spacing:1.6px}
+.parts-table-card-head h2{margin:0;color:#1e3547;font-size:18px;font-weight:800;letter-spacing:-.035em}
+.parts-total-badge{padding:7px 10px;border-radius:6px;background:#e8f4ef;color:#397d6c;font-size:10px;font-weight:800;white-space:nowrap}
+.parts-table-scroll{overflow-x:auto}
+.parts-data-table{min-width:1120px;border-collapse:collapse}
+.parts-data-table thead{background:#f3f6f6}
+.parts-data-table th{height:48px;padding:0 14px;color:#788d98;font-size:9px;font-weight:850;letter-spacing:.55px;text-transform:uppercase;white-space:nowrap}
+.parts-data-table th:first-child,.parts-data-table td:first-child{padding-left:22px}
+.parts-sort-button{display:inline-flex;align-items:center;gap:7px;padding:8px 0;border:0;background:transparent;color:inherit;font:inherit;letter-spacing:inherit;text-transform:inherit;cursor:pointer}
+.parts-sort-button:hover,.parts-sort-button:focus-visible{color:#388d7c}
+.parts-sort-button:focus-visible{outline:2px solid #65aa91;outline-offset:3px;border-radius:3px}
+.parts-sort-button svg{width:13px;height:13px;opacity:.65}
+.parts-data-table td{height:68px;padding:12px 14px;border-top:1px solid #edf1f1;color:#4d6070;font-size:11px;vertical-align:middle;white-space:nowrap}
+.parts-data-table tbody tr{transition:background .15s ease}
+.parts-data-table tbody tr:hover{background:#f8fbfa}
+.parts-empty-cell{height:160px!important;text-align:center!important;white-space:normal!important;color:#718692!important}
+.parts-empty-cell strong,.parts-empty-cell span{display:block}
+.parts-empty-cell strong{margin-bottom:6px;color:#334d5d;font-size:13px}
+.parts-empty-cell span{font-size:11px}
+.parts-name-cell{min-width:230px;max-width:280px;white-space:normal!important}
+.parts-name-cell strong,.parts-name-cell span,.parts-name-cell small{display:block}
+.parts-name-cell strong{color:#293f50;font-size:11px;font-weight:800;line-height:1.45}
+.parts-name-cell span{margin-top:3px;color:#7d929d;font-size:10px;line-height:1.45}
+.parts-name-cell small{margin-top:5px;color:#a0afb6;font-size:8px;font-weight:800;letter-spacing:.8px}
+.parts-vehicle-ref{display:inline-block;padding:5px 8px;border:1px solid #e7eded;border-radius:4px;color:#556e7c;font-size:10px;font-weight:750}
+.parts-brand,.parts-vehicle-model,.parts-group,.parts-category{display:block}
+.parts-brand{color:#354e60;font-size:10px;font-weight:850}
+.parts-vehicle-model,.parts-category{margin-top:4px;color:#80939e;font-size:10px}
+.parts-number{color:#367968;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10px}
+.parts-moving{display:inline-flex;padding:5px 8px;border-radius:4px;background:#edf3f3;color:#71858f;font-size:9px;font-weight:800}
+.parts-moving-fast{background:#e6f4ed;color:#3e886d}
+.parts-moving-medium{background:#f2f1e8;color:#8a7e46}
+.parts-moving-slow{background:#edf0f3;color:#778794}
+.parts-price{text-align:right;font-variant-numeric:tabular-nums;font-weight:750;color:#40586a!important}
+.parts-status{display:inline-flex;align-items:center;gap:6px;font-size:9px;font-weight:750}
+.parts-status i{width:6px;height:6px;border-radius:50%;background:#9caab0}
+.parts-status-available{color:#39866c}
+.parts-status-available i{background:#55b58a}
+.parts-status-warning{color:#aa7740}
+.parts-status-warning i{background:#daa652}
+.parts-status-neutral{color:#8a9aa2}
+.parts-table-footer{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 14px;border-top:1px solid #e9eff0}
+.parts-pagination-size,.parts-pagination-controls{display:flex;align-items:center;gap:9px;color:#667b88;font-size:11px}
+.parts-pagination-size label{white-space:nowrap}
+.parts-pagination-size select{width:74px;height:34px;padding:0 25px 0 10px;border:1px solid #e8e1d8;border-radius:9px;background:#fff;color:#405363;font:inherit;box-shadow:0 2px 5px #26384a12;cursor:pointer}
+.parts-pagination-total{display:flex;align-items:center;gap:7px;padding-left:10px;border-left:1px solid #e4e9eb;white-space:nowrap}
+.parts-pagination-total i{display:none}
+.parts-pagination-page{white-space:nowrap}
+.parts-pagination{display:flex;align-items:center;gap:5px}
+.parts-pagination button{width:32px;height:32px;border-color:#eee7dd;border-radius:9px;background:#fff;color:#6f6659;box-shadow:0 2px 5px #26384a10}
+.parts-pagination button:hover:not(:disabled){background:#faf8f4;color:#27394a}
+.parts-pagination button:disabled{opacity:.48}
+.parts-data-note{margin:15px 2px 0;color:#8799a2;font-size:10px;line-height:1.7}
+.toolbar-search>svg{width:16px;height:16px;flex-shrink:0;color:#409e88}
+.parts-page-footer{padding:20px 0;border-top:1px solid #e2e9eb;background:#fff;color:#91a1a8;font-size:9px;font-weight:800;letter-spacing:.9px}
+.parts-page-footer .container{display:flex;justify-content:space-between;gap:12px}
+@media(max-width:760px){.parts-table-footer{align-items:flex-start;flex-direction:column;padding:10px 12px}.parts-pagination-size{flex-wrap:wrap;gap:7px}.parts-pagination-size select{height:32px;width:68px}.parts-pagination-controls{justify-content:space-between;width:100%;gap:7px}.parts-pagination{gap:4px}.parts-pagination button{width:30px;height:30px}.parts-data-table{min-width:1080px}}

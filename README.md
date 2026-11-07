@@ -2,23 +2,25 @@
 
 Proyek ini adalah frontend React + Vite yang sedang disiapkan untuk migrasi tampilan aplikasi **PARTSCOPE** dari PHP Native. Target migrasi adalah mempertahankan tampilan dan alur halaman sumber, sambil mengganti implementasi frontend ke React. Migrasi ini tidak mencakup backend.
 
-> **Status saat ini:** landing page dan login PARTSCOPE sudah diimplementasikan. Katalog dan data 5.239 baris belum dimigrasikan. Lihat [roadmap migrasi](docs/tasks/roadmap.md).
+> **Status saat ini:** landing, login, dan halaman `/parts` dengan pencarian, filter lokal, sorting header, dan pagination sudah tersedia. Lihat [roadmap migrasi](docs/tasks/roadmap.md).
 
 ## Batas Cakupan
 
 - Frontend saja: React, routing, komponen, styling, dan interaksi di browser.
 - Data katalog ditargetkan disimpan lokal dalam modul TypeScript atau berkas JSON; tidak ada API atau database pada hasil migrasi ini.
 - Tampilan yang menjadi acuan adalah halaman PHP PARTSCOPE: landing page, login, dan katalog master data.
-- Login pada frontend hanya simulasi navigasi. Tanpa backend, halaman tidak dapat memverifikasi akun atau melindungi data.
+- Login mencocokkan satu akun demo dari `src/data/user.ts` di browser. Tanpa backend, ini bukan autentikasi aman dan tidak membuat sesi server.
 - Fitur toko online seperti keranjang, checkout, pembayaran, rating, harga jual, dan stok gudang tidak termasuk target migrasi saat ini.
 
 ## Kondisi Implementasi Saat Ini
 
 - `/` memakai `src/layouts/guest.tsx` dan `src/pages/landing-home.tsx`; login `/login` dirender terpisah tanpa Guest layout.
 - Landing dipecah menjadi section langsung di `src/features/landing/` (hero, statistik, fitur, alur, dan CTA).
-- `src/pages/auth/login.tsx` memakai komponen Input, Label, Button, serta ikon Lucide. Submit memberi tahu bahwa autentikasi belum tersedia.
-- CSS dan aset hexagon dari PHP disalin ke `src/styles/` untuk mempertahankan desain PARTSCOPE.
-- Katalog `src/pages/index-parts.tsx` dan data `src/data/parts.ts` masih kosong. Data 5.239 baris dan perilaku katalog belum dimigrasikan.
+- `src/pages/auth/login.tsx` memakai komponen Input, Label, Button, serta ikon Lucide dan memeriksa akun demo lokal.
+- Kredensial demo: `test@example.com` / `admin123`.
+- CSS dasar PARTSCOPE berada di `src/App.css`; theme landing, tuning, dan aset hexagon berada di `src/assets/`.
+- `src/data/parts.ts` memuat 5.239 record statis, bertipe `SparePart`, bersumber dari SQL seed proyek PHP.
+- Halaman `/parts` mengikuti kerangka PHP PARTSCOPE dengan pencarian, filter lokal, tabel delapan kolom, sorting header, dan pagination yang dapat diatur (10 baris per halaman secara default).
 
 Detail arsitektur dan perbedaan model data tercatat di [frontend-system.md](docs/architecture/frontend-system.md).
 
@@ -39,19 +41,23 @@ Versi dependensi dan script otoritatif berada di [package.json](package.json). D
 
 ```text
 src/
-├── App.tsx                 # Router, provider global, lazy route
+├── App.tsx                 # Router dan lazy route
+├── App.css                 # CSS dasar PARTSCOPE dari aplikasi PHP
 ├── main.tsx                # Entry point React
 ├── pages/
 │   ├── landing-home.tsx    # Komposisi landing
-│   ├── index-parts.tsx     # Placeholder halaman katalog
+│   ├── parts.tsx           # Halaman katalog master data
 │   └── auth/login.tsx      # Login demo tanpa backend
 ├── features/landing/       # Section landing dalam file terpisah
+├── features/app/           # Fitur halaman katalog aplikasi
 ├── layouts/guest.tsx       # Layout landing, navigasi, dan footer
 ├── components/
-│   ├── common/             # Saat ini hanya ErrorBoundary
+│   ├── common/             # Brand, ErrorBoundary, dan tabel data reusable
 │   └── ui/                 # Primitif UI
-├── data/parts.ts           # Placeholder data katalog, belum diisi
-├── styles/                 # CSS acuan PHP, tuning ukuran, dan aset hexagon
+├── data/parts.ts           # Dataset statis 5.239 part dan tipe SparePart
+├── assets/
+│   ├── styles/             # Theme landing dan tuning
+│   └── img/                # Pattern hexagon
 ├── hooks/                  # Hook bersama
 ├── lib/                    # Utilitas
 └── index.css               # Tailwind dan token desain

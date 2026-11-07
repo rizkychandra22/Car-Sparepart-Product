@@ -1,9 +1,11 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
-import './styles/css/app.css'
-import './styles/css/home-tech.css'
-import './styles/css/landing-tuning.css'
+import './App.css'
+import './assets/styles/auth-tuning.css'
+import './assets/styles/home-tech.css'
+import './assets/styles/landing-tuning.css'
+import './assets/styles/parts.css'
 import App from './App.tsx'
 
 createRoot(document.getElementById('root')!).render(
