@@ -55,7 +55,6 @@ export default function LoginPage() {
         <div className="auth-form-top"><Brand /><span className="access-tag">DEMO FRONTEND</span></div>
 
         <div className="auth-form-content">
-          <div className="form-kicker">WELCOME <span>— 01</span></div>
           <h1 id="login-title">Masuk ke akun<br /><em>PARTSCOPE.</em></h1>
           <p className="form-subtitle">Masuk menggunakan akun demo untuk mencoba alur login frontend PARTSCOPE.</p>
 
