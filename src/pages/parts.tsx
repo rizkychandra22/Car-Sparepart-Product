@@ -188,12 +188,6 @@ export default function PartsPage() {
       <main className="page-parts">
         <section className="catalog-main">
           <div className="container">
-            <div className="catalog-mobile-controls">
-              <Button className="button button-ink button-sm" type="button" aria-expanded={isFilterOpen} aria-controls="catalog-sidebar" onClick={() => setIsFilterOpen(true)}>
-                Filter{activeCount ? ` (${activeCount})` : ""}
-              </Button>
-              <span>{numberFormat.format(visibleParts.length)} hasil</span>
-            </div>
             <div className="catalog-backdrop" hidden={!isFilterOpen} onClick={() => setIsFilterOpen(false)} aria-hidden="true" />
 
             <form className="catalog-layout" onSubmit={applyFilters}>
@@ -224,14 +218,25 @@ export default function PartsPage() {
                       </Button>
                     )}
                   </div>
-                  <div className="toolbar-sort">
-                    <label htmlFor="sort">Urutkan</label>
-                    <Select value={draftFilters.sort} onValueChange={updateSort}>
-                      <SelectTrigger id="sort" className="toolbar-sort-select" size="sm"><SelectValue /></SelectTrigger>
-                      <SelectContent className="parts-select-content">
-                        {sortOptions.map(([value, label]) => <SelectItem className="parts-select-item" key={value} value={value}>{label}</SelectItem>)}
-                      </SelectContent>
-                    </Select>
+                  <div className="toolbar-controls-row">
+                    <Button
+                      className="catalog-toolbar-filter button button-ink button-sm"
+                      type="button"
+                      aria-expanded={isFilterOpen}
+                      aria-controls="catalog-sidebar"
+                      onClick={() => setIsFilterOpen(true)}
+                    >
+                      Filter{activeCount ? ` (${activeCount})` : ""}
+                    </Button>
+                    <div className="toolbar-sort">
+                      <label htmlFor="sort">Urutkan</label>
+                      <Select value={draftFilters.sort} onValueChange={updateSort}>
+                        <SelectTrigger id="sort" className="toolbar-sort-select" size="sm"><SelectValue /></SelectTrigger>
+                        <SelectContent className="parts-select-content">
+                          {sortOptions.map(([value, label]) => <SelectItem className="parts-select-item" key={value} value={value}>{label}</SelectItem>)}
+                        </SelectContent>
+                      </Select>
+                    </div>
                   </div>
                 </Card>
 
