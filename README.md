@@ -120,7 +120,7 @@ npm run preview
 
 Untuk membaca ketentuan teknis lebih mendalam dan arah pengembangan fitur:
 - 📖 **[Ketentuan Arsitektur & Sistem Frontend](docs/architecture/frontend-system.md)**
-- 🗺️ **[Roadmap & Rencana Pengembangan Fitur](docs/planning/roadmap.md)**
+- 🗺️ **[Roadmap & Rencana Pengembangan Fitur](docs/tasks/roadmap.md)**
 
 ---
 
