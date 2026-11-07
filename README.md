@@ -2,7 +2,7 @@
 
 Proyek ini adalah frontend React + Vite yang sedang disiapkan untuk migrasi tampilan aplikasi **PARTSCOPE** dari PHP Native. Target migrasi adalah mempertahankan tampilan dan alur halaman sumber, sambil mengganti implementasi frontend ke React. Migrasi ini tidak mencakup backend.
 
-> **Status saat ini:** landing page dan login PARTSCOPE sudah diimplementasikan. Katalog dan data 5.239 baris belum dimigrasikan. Lihat [roadmap migrasi](docs/tasks/roadmap.md).
+> **Status saat ini:** landing, login, dan dataset statis 5.239 baris sudah tersedia. Halaman serta interaksi katalog masih belum diimplementasikan. Lihat [roadmap migrasi](docs/tasks/roadmap.md).
 
 ## Batas Cakupan
 
@@ -18,7 +18,8 @@ Proyek ini adalah frontend React + Vite yang sedang disiapkan untuk migrasi tamp
 - Landing dipecah menjadi section langsung di `src/features/landing/` (hero, statistik, fitur, alur, dan CTA).
 - `src/pages/auth/login.tsx` memakai komponen Input, Label, Button, serta ikon Lucide. Submit memberi tahu bahwa autentikasi belum tersedia.
 - CSS dan aset hexagon dari PHP disalin ke `src/styles/` untuk mempertahankan desain PARTSCOPE.
-- Katalog `src/pages/index-parts.tsx` dan data `src/data/parts.ts` masih kosong. Data 5.239 baris dan perilaku katalog belum dimigrasikan.
+- `src/data/parts.ts` memuat 5.239 record statis, bertipe `SparePart`, bersumber dari SQL seed proyek PHP.
+- Halaman `src/pages/index-parts.tsx` masih kosong; pencarian, filter, sorting, dan pagination katalog belum diimplementasikan.
 
 Detail arsitektur dan perbedaan model data tercatat di [frontend-system.md](docs/architecture/frontend-system.md).
 
@@ -50,7 +51,7 @@ src/
 ├── components/
 │   ├── common/             # Saat ini hanya ErrorBoundary
 │   └── ui/                 # Primitif UI
-├── data/parts.ts           # Placeholder data katalog, belum diisi
+├── data/parts.ts           # Dataset statis 5.239 part dan tipe SparePart
 ├── styles/                 # CSS acuan PHP, tuning ukuran, dan aset hexagon
 ├── hooks/                  # Hook bersama
 ├── lib/                    # Utilitas

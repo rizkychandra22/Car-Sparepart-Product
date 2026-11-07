@@ -1,6 +1,6 @@
 # Arsitektur Frontend PARTSCOPE
 
-Dokumen ini membedakan bagian yang sudah diimplementasikan dari target migrasi katalog. Landing page dan login kini telah dipindahkan ke React; katalog dan data master masih menjadi pekerjaan berikutnya.
+Dokumen ini membedakan bagian yang sudah diimplementasikan dari target migrasi katalog. Landing page, login demo, dan dataset statis sudah tersedia; halaman serta interaksi katalog masih menjadi pekerjaan berikutnya.
 
 ## 1. Cakupan
 
@@ -44,7 +44,7 @@ src/
 │   ├── common/brand.tsx
 │   ├── common/error-boundary.tsx
 │   └── ui/                    # Primitif UI yang tersedia
-├── data/parts.ts              # Placeholder; belum berisi tipe/data
+├── data/parts.ts              # SparePart type + 5,239 static records
 ├── styles/css/                # CSS acuan PHP dan tuning ukuran landing
 ├── styles/img/                # Pattern hexagon
 ├── hooks/
@@ -59,7 +59,7 @@ src/
 
 Sumber acuan berisi 5.239 baris dengan kolom `source_excel_row`, `hyundai_type`, `brand`, `vehicle_type`, `part_name_original`, `part_description_competitor`, `part_group`, `category`, `estimated_moving`, `part_number`, `price`, `price_source_text`, dan `part_number_status`.
 
-Buat tipe domain `SparePart` tersendiri di `src/data/` atau `src/types/`; jangan gunakan kembali model `Product` storefront yang sudah dihapus. Nilai kosong dipertahankan sebagai kosong/`null`. `brand` adalah merek kendaraan pembanding. Harga sumber tidak mencantumkan mata uang atau tanggal, dan sumber tidak membuktikan kompatibilitas.
+`src/data/parts.ts` memuat tipe domain `SparePart` dan seluruh 5.239 record dalam tuple data lokal yang dipetakan ke object `PARTS` saat modul dimuat. Data berasal dari SQL seed proyek PHP, mencakup nomor baris Excel 2–5240. Nilai kosong dipertahankan sebagai `null`; `price` berbentuk string agar presisi desimal tidak berubah. `brand` adalah merek kendaraan pembanding. Harga sumber tidak mencantumkan mata uang atau tanggal, dan sumber tidak membuktikan kompatibilitas.
 
 Perilaku katalog yang perlu dimigrasikan: pencarian nama/deskripsi/nomor part; filter Hyundai Type, Brand, Vehicle Type, Part Group, kategori, moving, status, rentang harga, serta keberadaan harga/nomor; sorting; pagination 25 baris; ringkasan hasil; empty state; reset; filter drawer mobile; dan layout responsif.
 

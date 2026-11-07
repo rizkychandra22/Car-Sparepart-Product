@@ -19,8 +19,9 @@ Checklist pengembangan frontend React + Vite dari aplikasi PHP Native. Perubahan
 - [x] Sambungkan route `/` dan `/login`; hapus provider cart/dashboard dari `App.tsx`.
 - [x] Gunakan kembali CSS dan aset hexagon dari frontend PHP sebagai acuan desain.
 - [x] Sesuaikan skala landing sedikit lebih kecil tanpa mengubah layout dan palet utama.
+- [x] Impor 5.239 record sumber ke `src/data/parts.ts` sebagai mock frontend bertipe.
 - [ ] Implementasikan halaman katalog dan sambungkan route katalog.
-- [ ] Impor dataset penuh dan implementasikan pencarian/filter katalog.
+- [ ] Implementasikan pencarian/filter katalog di browser.
 
 ## Fase 0 — Referensi Visual
 
@@ -30,9 +31,9 @@ Checklist pengembangan frontend React + Vite dari aplikasi PHP Native. Perubahan
 
 ## Fase 1 — Data Master
 
-- [ ] Siapkan 5.239 baris dataset terverifikasi di `src/data/`.
-- [ ] Buat tipe `SparePart` dan pemetaan semua kolom sumber.
-- [ ] Pertahankan nilai kosong; jangan menambahkan stok, rating, harga pasar, atau kompatibilitas.
+- [x] Siapkan 5.239 baris dataset terverifikasi di `src/data/parts.ts` dari SQL seed sumber.
+- [x] Buat tipe `SparePart` dan pemetaan semua kolom sumber.
+- [x] Pertahankan nilai kosong; jangan menambahkan stok, rating, harga pasar, atau kompatibilitas.
 - [ ] Bentuk opsi filter dari nilai dataset.
 
 Kolom sumber: `source_excel_row`, `hyundai_type`, `brand`, `vehicle_type`, `part_name_original`, `part_description_competitor`, `part_group`, `category`, `estimated_moving`, `part_number`, `price`, `price_source_text`, dan `part_number_status`. Brand adalah kendaraan pembanding; harga tidak mencantumkan mata uang/tanggal.
