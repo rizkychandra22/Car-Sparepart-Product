@@ -5,7 +5,7 @@ import { Brand } from "@/components/common/brand"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { USERS } from "@/data/user"
+import { authenticateDemoUser } from "@/data/user"
 
 type LoginNotice = {
   type: "success" | "error"
@@ -20,14 +20,12 @@ export default function LoginPage() {
     event.preventDefault()
 
     const formData = new FormData(event.currentTarget)
-    const email = String(formData.get("email") ?? "").trim().toLowerCase()
+    const email = String(formData.get("email") ?? "")
     const password = String(formData.get("password") ?? "")
-    const matchedUser = USERS.find(
-      (user) => user.email.toLowerCase() === email && user.password === password
-    )
+    const matchedUser = authenticateDemoUser(email, password)
 
     setNotice(matchedUser
-      ? { type: "success", message: "Login demo berhasil. Kredensial diperiksa secara lokal di browser." }
+      ? { type: "success", message: `Login demo berhasil sebagai ${matchedUser.email}.` }
       : { type: "error", message: "Email atau password tidak sesuai dengan akun demo." })
   }
 

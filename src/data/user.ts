@@ -10,3 +10,12 @@ export const USERS: readonly DemoUser[] = [
     password: "admin123",
   },
 ]
+
+/** Validate credentials against the local demo users. */
+export function authenticateDemoUser(email: string, password: string): DemoUser | null {
+  const normalizedEmail = email.trim().toLowerCase()
+
+  return USERS.find(
+    (user) => user.email.toLowerCase() === normalizedEmail && user.password === password
+  ) ?? null
+}
