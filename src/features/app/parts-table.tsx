@@ -1,4 +1,5 @@
 import { DataTable, type DataTableColumn } from "@/components/common/data-table"
+import { Badge } from "@/components/ui/badge"
 import { type SparePart } from "@/data/parts"
 
 const numberFormat = new Intl.NumberFormat("id-ID")
@@ -58,9 +59,9 @@ const columns: DataTableColumn<SparePart>[] = [
     label: "Est. moving",
     sortValue: (part) => part.estimatedMoving,
     render: (part) => (
-      <span className={`parts-moving parts-moving-${(part.estimatedMoving ?? "unknown").toLowerCase()}`}>
+      <Badge variant="secondary" className={`parts-moving parts-moving-${(part.estimatedMoving ?? "unknown").toLowerCase()}`}>
         {part.estimatedMoving ?? "—"}
-      </span>
+      </Badge>
     ),
   },
   {
@@ -74,7 +75,7 @@ const columns: DataTableColumn<SparePart>[] = [
     key: "partNumberStatus",
     label: "Status",
     sortValue: (part) => part.partNumberStatus,
-    render: (part) => <span className={getStatusClass(part.partNumberStatus)}><i aria-hidden="true" />{part.partNumberStatus ?? "—"}</span>,
+    render: (part) => <Badge variant="outline" className={getStatusClass(part.partNumberStatus)}><i aria-hidden="true" />{part.partNumberStatus ?? "—"}</Badge>,
   },
 ]
 

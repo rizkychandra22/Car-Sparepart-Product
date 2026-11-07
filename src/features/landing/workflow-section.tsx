@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom"
 import { ArrowUpRight } from "lucide-react"
+import { Button } from "@/components/ui/button"
 
 const steps = [
   ["01", "Login ke platform", "Masuk dengan akun yang sudah disediakan administrator."],
@@ -16,7 +17,9 @@ export function WorkflowSection() {
           <p className="bt-section-eyebrow">02 / HOW IT WORKS</p>
           <h2 id="workflow-title">Dari data mentah<br />menjadi <span>informasi.</span></h2>
           <p>Alur sederhana untuk menampilkan dan menemukan referensi spare part lintas kendaraan.</p>
-          <Link to="/login" className="bt-btn bt-btn-primary">Masuk ke sistem <ArrowUpRight aria-hidden="true" /></Link>
+          <Button asChild className="bt-btn bt-btn-primary border-0 shadow-none hover:bg-transparent">
+            <Link to="/login">Masuk ke sistem <ArrowUpRight aria-hidden="true" /></Link>
+          </Button>
         </div>
         <div className="bt-workflow-steps">
           {steps.map(([number, title, description]) => (

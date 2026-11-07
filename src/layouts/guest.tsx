@@ -26,9 +26,11 @@ export function Guest() {
 
           <div className="header-actions">
             <Link className="link-login" to="/login">Masuk</Link>
-            <Link className="button button-ink button-sm" to="/login">
+            <Button asChild className="button button-ink button-sm border-0 shadow-none">
+              <Link to="/login">
               Buka katalog <span aria-hidden="true">↗</span>
-            </Link>
+              </Link>
+            </Button>
           </div>
 
           <Button

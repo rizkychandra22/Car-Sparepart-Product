@@ -1,4 +1,5 @@
 import { Search, SlidersHorizontal, TableProperties } from "lucide-react"
+import { Card } from "@/components/ui/card"
 
 const features = [
   {
@@ -34,12 +35,12 @@ export function FeaturesSection() {
         </div>
         <div className="bt-feature-grid">
           {features.map(({ number, title, description, footer, Icon }) => (
-            <article className="bt-feature" key={number}>
+            <Card className="bt-feature gap-0 ring-0" key={number} role="article">
               <div className="bt-feature-top"><span>{number}</span><Icon aria-hidden="true" /></div>
               <h3>{title}</h3>
               <p>{description}</p>
               <span className="bt-feature-footer">{footer}<span aria-hidden="true">↗</span></span>
-            </article>
+            </Card>
           ))}
         </div>
       </div>

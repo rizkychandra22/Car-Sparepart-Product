@@ -1,6 +1,9 @@
 import { useMemo, useState, type ReactNode } from "react"
 import { ArrowDown, ArrowUp, ArrowUpDown, ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { Badge } from "@/components/ui/badge"
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import {
   Table,
   TableBody,
@@ -76,16 +79,16 @@ export function DataTable<T>({
   }
 
   return (
-    <section className="parts-table-card" aria-label={title}>
-      <div className="parts-table-card-head">
+    <Card className="parts-table-card gap-0 py-0 ring-0" role="region" aria-label={title}>
+      <CardHeader className="parts-table-card-head">
         <div>
           <p className="parts-table-eyebrow">{eyebrow}</p>
-          <h2>{title}</h2>
+          <CardTitle className="parts-table-title" role="heading" aria-level={2}>{title}</CardTitle>
         </div>
-        <span className="parts-total-badge">{formatCount(data.length)} data</span>
-      </div>
+        <Badge variant="secondary" className="parts-total-badge">{formatCount(data.length)} data</Badge>
+      </CardHeader>
 
-      <div className="parts-table-scroll">
+      <CardContent className="parts-table-scroll p-0">
         <Table className="parts-data-table">
           <TableHeader>
             <TableRow>
@@ -127,21 +130,23 @@ export function DataTable<T>({
             ))}
           </TableBody>
         </Table>
-      </div>
+      </CardContent>
 
-      <div className="parts-table-footer">
+      <CardFooter className="parts-table-footer">
         <div className="parts-pagination-size">
           <label htmlFor="parts-page-size">Tampilkan per halaman</label>
-          <select
-            id="parts-page-size"
-            value={rowsPerPage}
-            onChange={(event) => {
-              setRowsPerPage(Number(event.target.value))
+          <Select
+            value={String(rowsPerPage)}
+            onValueChange={(value) => {
+              setRowsPerPage(Number(value))
               setPage(1)
             }}
           >
-            {[10, 25, 50, 100].map((size) => <option key={size} value={size}>{size}</option>)}
-          </select>
+            <SelectTrigger id="parts-page-size" className="parts-page-size-select" size="sm"><SelectValue /></SelectTrigger>
+            <SelectContent align="end" className="parts-select-content">
+              {[10, 25, 50, 100].map((size) => <SelectItem className="parts-select-item" key={size} value={String(size)}>{size}</SelectItem>)}
+            </SelectContent>
+          </Select>
           <span className="parts-pagination-total"><i aria-hidden="true" />Total {formatCount(sortedRows.length)} data</span>
         </div>
         <div className="parts-pagination-controls">
@@ -161,7 +166,7 @@ export function DataTable<T>({
             </Button>
           </nav>
         </div>
-      </div>
-    </section>
+      </CardFooter>
+    </Card>
   )
 }

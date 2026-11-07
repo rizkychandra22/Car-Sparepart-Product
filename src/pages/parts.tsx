@@ -2,8 +2,12 @@ import { useMemo, useState, type FormEvent } from "react"
 import { Link } from "react-router-dom"
 import { Search, X } from "lucide-react"
 import { Brand } from "@/components/common/brand"
+import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
+import { Card } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { PartsFilterPanel, type PartsFilterField, type PartsFilterValues } from "@/features/app/parts-filter-panel"
 import { PartsTable } from "@/features/app/parts-table"
 import { PARTS, type SparePart } from "@/data/parts"
@@ -159,7 +163,7 @@ export default function PartsPage() {
             <span className="app-nav-current"><span className="nav-square" aria-hidden="true" />Master Data Spare Parts</span>
           </nav>
           <div className="account-area">
-            <div className="account-avatar" aria-hidden="true">A</div>
+            <Avatar className="account-avatar" aria-hidden="true"><AvatarFallback>A</AvatarFallback></Avatar>
             <span className="account-label">Administrator</span>
             <Link to="/login" className="account-logout">Keluar <span aria-hidden="true">↗</span></Link>
           </div>
@@ -204,7 +208,7 @@ export default function PartsPage() {
               />
 
               <div className="catalog-results">
-                <div className="result-toolbar">
+                <Card className="result-toolbar gap-0 ring-0">
                   <div className="toolbar-search">
                     <Search aria-hidden="true" />
                     <Input
@@ -215,22 +219,25 @@ export default function PartsPage() {
                       onChange={(event) => updateQuery(event.target.value)}
                     />
                     {draftFilters.query && (
-                      <button className="toolbar-search-clear" type="button" aria-label="Hapus keyword pencarian" onClick={() => updateQuery("")}>
+                      <Button variant="ghost" size="icon-sm" className="toolbar-search-clear" type="button" aria-label="Hapus keyword pencarian" onClick={() => updateQuery("")}>
                         <X aria-hidden="true" />
-                      </button>
+                      </Button>
                     )}
                   </div>
                   <div className="toolbar-sort">
                     <label htmlFor="sort">Urutkan</label>
-                    <select id="sort" value={draftFilters.sort} onChange={(event) => updateSort(event.target.value)}>
-                      {sortOptions.map(([value, label]) => <option key={value} value={value}>{label}</option>)}
-                    </select>
+                    <Select value={draftFilters.sort} onValueChange={updateSort}>
+                      <SelectTrigger id="sort" className="toolbar-sort-select" size="sm"><SelectValue /></SelectTrigger>
+                      <SelectContent className="parts-select-content">
+                        {sortOptions.map(([value, label]) => <SelectItem className="parts-select-item" key={value} value={value}>{label}</SelectItem>)}
+                      </SelectContent>
+                    </Select>
                   </div>
-                </div>
+                </Card>
 
                 <div className="results-summary">
                   <div>
-                    <div className="results-title">Hasil pencarian <span className="result-count">{numberFormat.format(visibleParts.length)}</span></div>
+                    <div className="results-title">Hasil pencarian <Badge variant="secondary" className="result-count">{numberFormat.format(visibleParts.length)}</Badge></div>
                     <p>Menampilkan data sesuai pencarian dan filter aktif.</p>
                   </div>
                   <span className="result-meta">SOURCE MATCHED RECORDS</span>

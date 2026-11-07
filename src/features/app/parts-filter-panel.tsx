@@ -1,5 +1,11 @@
+import { Card } from "@/components/ui/card"
+import { Checkbox } from "@/components/ui/checkbox"
+import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { X } from "lucide-react"
 
 export interface PartsFilterValues {
   query: string
@@ -36,34 +42,41 @@ interface PartsFilterPanelProps {
 
 export function PartsFilterPanel({ values, fields, activeCount, isOpen, onChange, onClose, onReset }: PartsFilterPanelProps) {
   return (
-    <aside className={`filter-panel${isOpen ? " is-open" : ""}`} id="catalog-sidebar" aria-label="Filter pencarian">
+    <Card className={`filter-panel gap-0 ring-0${isOpen ? " is-open" : ""}`} id="catalog-sidebar" role="complementary" aria-label="Filter pencarian">
       <div className="filter-head">
         <div>
           <span className="filter-label">SEARCH PARAMETERS</span>
-          <h2>Filter data <span>{activeCount}</span></h2>
+          <h2>Filter data <Badge variant="secondary">{activeCount}</Badge></h2>
         </div>
-        <button className="filter-close" type="button" onClick={onClose} aria-label="Tutup filter">×</button>
+        <Button variant="ghost" size="icon-sm" className="filter-close border-0 bg-transparent p-0 shadow-none hover:bg-transparent" type="button" onClick={onClose} aria-label="Tutup filter">
+          <X aria-hidden="true" />
+        </Button>
       </div>
 
       <div className="filter-section">
-        <label className="filter-section-label" htmlFor="part_number">Nomor part</label>
+        <Label className="filter-section-label" htmlFor="part_number">Nomor part</Label>
         <Input id="part_number" className="filter-control" type="search" value={values.partNumber} placeholder="Contoh: 86521I7700" onChange={(event) => onChange("partNumber", event.target.value)} />
       </div>
 
       {fields.map((field) => (
         <div className="filter-section" key={field.key}>
-          <label className="filter-section-label" htmlFor={field.key}>{field.label}</label>
+          <Label className="filter-section-label" htmlFor={field.key}>{field.label}</Label>
           <div className="select-wrap">
-            <select id={field.key} className="filter-control" value={values[field.key]} onChange={(event) => onChange(field.key, event.target.value)}>
-              <option value="">Semua {field.label}</option>
-              {field.options.map((option) => <option key={option} value={option}>{option}</option>)}
-            </select>
+            <Select value={values[field.key] || "all"} onValueChange={(value) => onChange(field.key, value === "all" ? "" : value)}>
+              <SelectTrigger id={field.key} className="filter-control parts-filter-select" size="sm">
+                <SelectValue placeholder={`Semua ${field.label}`} />
+              </SelectTrigger>
+              <SelectContent className="parts-select-content">
+                <SelectItem className="parts-select-item" value="all">Semua {field.label}</SelectItem>
+                {field.options.map((option) => <SelectItem className="parts-select-item" key={option} value={option}>{option}</SelectItem>)}
+              </SelectContent>
+            </Select>
           </div>
         </div>
       ))}
 
       <div className="filter-section">
-        <span className="filter-section-label">Rentang harga sumber</span>
+        <Label className="filter-section-label">Rentang harga sumber</Label>
         <div className="price-inputs">
           <Input className="filter-control" type="number" min="0" step="0.000001" value={values.priceMin} placeholder="Min" aria-label="Harga minimum" onChange={(event) => onChange("priceMin", event.target.value)} />
           <span>–</span>
@@ -72,14 +85,14 @@ export function PartsFilterPanel({ values, fields, activeCount, isOpen, onChange
       </div>
 
       <div className="filter-section filter-checks">
-        <label><input type="checkbox" checked={values.hasPrice} onChange={(event) => onChange("hasPrice", event.target.checked)} /><span>Hanya yang memiliki harga</span></label>
-        <label><input type="checkbox" checked={values.hasNumber} onChange={(event) => onChange("hasNumber", event.target.checked)} /><span>Hanya yang memiliki nomor part</span></label>
+        <label><Checkbox id="has-price" checked={values.hasPrice} onCheckedChange={(checked) => onChange("hasPrice", checked === true)} /><span>Hanya yang memiliki harga</span></label>
+        <label><Checkbox id="has-number" checked={values.hasNumber} onCheckedChange={(checked) => onChange("hasNumber", checked === true)} /><span>Hanya yang memiliki nomor part</span></label>
       </div>
 
       <div className="filter-actions">
         <Button className="button button-ink filter-submit" type="submit">Terapkan filter <span aria-hidden="true">↗</span></Button>
-        <button className="reset-link" type="button" onClick={onReset}>↺ Reset semua filter</button>
+        <Button variant="link" className="reset-link" type="button" onClick={onReset}>↺ Reset semua filter</Button>
       </div>
-    </aside>
+    </Card>
   )
 }
