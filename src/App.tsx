@@ -5,7 +5,7 @@ import { Guest } from "@/layouts/guest"
 
 const LandingHome = lazy(() => import("@/pages/landing-home"))
 const LoginPage = lazy(() => import("@/pages/auth/login"))
-const PartsPage = lazy(() => import("@/pages/parts"))
+const PartsPage = lazy(() => import("@/pages/index-parts"))
 
 function PageFallback() {
   return (

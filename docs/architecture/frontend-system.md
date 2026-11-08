@@ -56,7 +56,7 @@ src/
 └── lib/
 ```
 
-`src/main.tsx` memuat `index.css` untuk Tailwind/shadcn, `App.css` sebagai CSS dasar dari aplikasi PHP, lalu stylesheet landing dan auth dari `src/assets/styles/`. Pattern hexagon berada di `src/assets/img/`. Struktur section landing dipisah langsung di `features/landing`; halaman hanya bertugas menyusun section. Login menggunakan komponen Input, Label, dan Button dari UI React yang tersedia serta ikon Lucide.
+`src/main.tsx` memuat `index.css` untuk Tailwind/shadcn, `App.css` sebagai CSS dasar dari aplikasi PHP, lalu stylesheet landing, auth, dan parts dari `src/assets/styles/`. Pattern hexagon berada di `src/assets/img/`. Struktur section landing dipisah langsung di `features/landing`; halaman hanya bertugas menyusun section. Landing, Login, dan Parts menggunakan komponen UI library seperti Card, Select, Checkbox, Badge, Avatar, Alert, Input, Label, Button, dan Table, dengan class CSS PARTSCOPE untuk mempertahankan desain acuan.
 
 `Guest` hanya dipakai landing. Login dirender sebagai route tersendiri agar tidak mendapat header dan footer landing.
 

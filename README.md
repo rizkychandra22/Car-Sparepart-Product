@@ -16,11 +16,11 @@ Proyek ini adalah frontend React + Vite yang sedang disiapkan untuk migrasi tamp
 
 - `/` memakai `src/layouts/guest.tsx` dan `src/pages/landing-home.tsx`; login `/login` dirender terpisah tanpa Guest layout.
 - Landing dipecah menjadi section langsung di `src/features/landing/` (hero, statistik, fitur, alur, dan CTA).
-- `src/pages/auth/login.tsx` memakai komponen Input, Label, Button, serta ikon Lucide dan memeriksa akun demo lokal.
+- `src/pages/auth/login.tsx` memakai komponen Input, Label, Button, Card, Alert, dan Badge dari UI library serta memeriksa akun demo lokal.
 - Kredensial demo: `test@example.com` / `admin123`.
 - CSS dasar PARTSCOPE berada di `src/App.css`; theme landing, tuning, dan aset hexagon berada di `src/assets/`.
 - `src/data/parts.ts` memuat 5.239 record statis, bertipe `SparePart`, bersumber dari SQL seed proyek PHP.
-- Halaman `/parts` mengikuti kerangka PHP PARTSCOPE dengan pencarian, filter lokal, tabel delapan kolom, sorting header, dan pagination yang dapat diatur (10 baris per halaman secara default).
+- Halaman `/parts` mengikuti kerangka PHP PARTSCOPE dengan pencarian, filter lokal, tabel delapan kolom, sorting header, dan pagination yang dapat diatur (10 baris per halaman secara default). Kontrol memakai komponen Card, Select, Checkbox, Badge, Avatar, Input, dan Button.
 
 Detail arsitektur dan perbedaan model data tercatat di [frontend-system.md](docs/architecture/frontend-system.md).
 
